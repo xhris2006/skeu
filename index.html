@@ -135,11 +135,12 @@ img{display:block;max-width:100%}
   width:30px;height:30px;background:var(--yellow);
   border-radius:7px;display:flex;align-items:center;justify-content:center;
 }
-.tn-links{display:none;align-items:center;gap:1.35rem;flex:1;justify-content:center;min-width:0}
+.tn-links{display:none;align-items:center;gap:1.15rem;flex:1;justify-content:center;min-width:0}
 .tn-links a{
   font-size:.85rem;font-weight:500;color:var(--text-muted);
   transition:color var(--ease);letter-spacing:.01em;
 }
+.tn-links a[href="#how-it-works"]{min-width:104px;text-align:center}
 .tn-links a:hover{color:var(--blue)}
 .tn-right{display:none;align-items:center;gap:.65rem;flex-shrink:0}
 .lang-switch{display:flex;align-items:center;gap:.35rem}
@@ -151,9 +152,6 @@ img{display:block;max-width:100%}
 }
 .lang-btn:hover{border-color:var(--blue-accent);color:var(--blue-accent)}
 .lang-btn.active{background:var(--blue);border-color:var(--blue);color:var(--white)}
-.sb-lang{padding:1rem 1.5rem 0;border-top:1px solid rgba(255,255,255,.07)}
-.sb-lang .lang-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:var(--white)}
-.sb-lang .lang-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--blue)}
 .burger{
   margin-left:.15rem;background:none;border:none;cursor:pointer;
   display:flex;flex-direction:column;gap:5px;padding:.35rem;
@@ -750,12 +748,6 @@ img{display:block;max-width:100%}
       <span data-i18n="nav_contact">Contact</span>
     </a>
   </nav>
-  <div class="sb-lang">
-    <div class="lang-switch">
-      <button type="button" class="lang-btn active" data-lang-btn="en">EN</button>
-      <button type="button" class="lang-btn" data-lang-btn="fr">FR</button>
-    </div>
-  </div>
   <div class="sb-foot">
     <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13M1 7H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
