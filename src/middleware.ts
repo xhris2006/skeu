@@ -1,7 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyToken } from '@/lib/auth'
+import { jwtVerify } from 'jose'
 
-export function middleware(req: NextRequest) {
+const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback_secret_change_me')
+
+async function hasAdminRole(token: string) {
+  try {
+    const { payload } = await jwtVerify(token, secret)
+    return payload.role === 'admin'
+  } catch {
+    return false
+  }
+}
+
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
@@ -11,8 +22,8 @@ export function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/admin/login', req.url))
     }
 
-    const decoded = verifyToken(token) as { role?: string } | null
-    if (!decoded || decoded.role !== 'admin') {
+    const isAdmin = await hasAdminRole(token)
+    if (!isAdmin) {
       return NextResponse.redirect(new URL('/admin/login', req.url))
     }
   }
