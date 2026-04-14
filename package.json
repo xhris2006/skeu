@@ -1,0 +1,8 @@
+{
+  "name": "skeu-static-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "vercel-build": "echo Static site detected - no build step required"
+  }
+}
