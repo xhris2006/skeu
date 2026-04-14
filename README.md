@@ -34,6 +34,7 @@ Renseignez ensuite :
 - `MONGODB_URI`
 - `JWT_SECRET`
 - `ADMIN_EMAIL`
+- `ADMIN_PASSWORD` *(optionnel mais recommande pour login admin via variables)*
 - `FAPSHI_API_USER`
 - `FAPSHI_API_KEY`
 - `FAPSHI_BASE_URL`
@@ -77,6 +78,7 @@ npm run dev
 La connexion admin utilise :
 
 - `ADMIN_EMAIL`
+- `ADMIN_PASSWORD` *(optionnel mais recommande pour login admin via variables)*
 
 Acces :
 
@@ -138,6 +140,7 @@ Variables minimales a definir dans Vercel :
 - `MONGODB_URI`
 - `JWT_SECRET`
 - `ADMIN_EMAIL`
+- `ADMIN_PASSWORD` *(optionnel mais recommande pour login admin via variables)*
 - `FAPSHI_API_USER`
 - `FAPSHI_API_KEY`
 - `FAPSHI_BASE_URL`

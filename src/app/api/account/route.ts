@@ -53,6 +53,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 })
     }
 
+
+    const adminEmail = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase()
+    const adminPassword = String(process.env.ADMIN_PASSWORD || '')
+
+    if (
+      adminEmail &&
+      adminPassword &&
+      normalizedEmail === adminEmail &&
+      rawPassword === adminPassword
+    ) {
+      return buildAuthResponse({ email: normalizedEmail, role: 'admin', name: trimmedName || 'Administrateur' })
+    }
     await connectDB()
 
     if (action === 'register') {
@@ -65,7 +77,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Un compte existe deja avec cet email' }, { status: 409 })
       }
 
-      const adminEmail = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase()
       const role: 'customer' | 'admin' = adminEmail && normalizedEmail === adminEmail ? 'admin' : 'customer'
 
       const hashedPassword = await bcrypt.hash(rawPassword, 10)

@@ -13,6 +13,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 })
     }
 
+
+    const adminEmail = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase()
+    const adminPassword = String(process.env.ADMIN_PASSWORD || '')
+
+    if (
+      adminEmail &&
+      adminPassword &&
+      normalizedEmail === adminEmail &&
+      String(password) === adminPassword
+    ) {
+      const token = signToken({ role: 'admin', email: normalizedEmail, name: 'Administrateur' }, '7d')
+      const response = NextResponse.json({ success: true, message: 'Connexion reussie' })
+      response.cookies.set('auth_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      })
+      return response
+    }
+
     await connectDB()
     const user = await User.findOne({ email: normalizedEmail })
 
