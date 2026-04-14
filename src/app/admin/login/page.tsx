@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
               type="email"
               value={form.email}
               onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-              placeholder="admin@skeucosmetique.com"
+              placeholder="admin@example.com"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400 transition-colors"
               onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
             />
@@ -95,6 +95,10 @@ export default function AdminLoginPage() {
         >
           {loading ? <><Loader2 size={16} className="animate-spin" /> Connexion...</> : 'Se connecter'}
         </button>
+        <p className="text-xs text-center text-gray-500 mt-4">
+          Si vous n&apos;avez pas encore de compte admin, inscrivez-vous d&apos;abord sur <span className="font-semibold">/login</span> avec l&apos;email defini dans <span className="font-semibold">ADMIN_EMAIL</span>.
+        </p>
+
       </div>
     </div>
   )

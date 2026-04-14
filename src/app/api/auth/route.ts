@@ -1,30 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { signToken } from '@/lib/auth'
+import { connectDB } from '@/lib/db'
+import User from '@/models/User'
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json()
+    const normalizedEmail = String(email || '').trim().toLowerCase()
 
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@skeucosmetique.com'
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@2024!'
+    if (!normalizedEmail || !password) {
+      return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 })
+    }
 
-    if (email !== adminEmail) {
+    await connectDB()
+    const user = await User.findOne({ email: normalizedEmail })
+
+    if (!user || user.role !== 'admin') {
       return NextResponse.json({ error: 'Identifiants incorrects' }, { status: 401 })
     }
 
-    let valid = false
-    if (adminPassword.startsWith('$2')) {
-      valid = await bcrypt.compare(password, adminPassword)
-    } else {
-      valid = password === adminPassword
-    }
-
+    const valid = await bcrypt.compare(String(password), user.password)
     if (!valid) {
       return NextResponse.json({ error: 'Identifiants incorrects' }, { status: 401 })
     }
 
-    const token = signToken({ role: 'admin', email }, '7d')
+    const token = signToken({ role: 'admin', email: user.email, name: user.name }, '7d')
 
     const response = NextResponse.json({ success: true, message: 'Connexion reussie' })
     response.cookies.set('auth_token', token, {

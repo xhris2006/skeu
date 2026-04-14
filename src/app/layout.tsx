@@ -6,9 +6,10 @@ export const metadata: Metadata = {
   description: 'Cosmetiques premium pour sublimer votre peau. Livraison rapide au Cameroun.',
   keywords: 'cosmetiques, skincare, beaute, Cameroun, FCFA',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/favicon.svg'],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    other: [{ rel: 'mask-icon', url: '/favicon.svg', color: '#4C1D95' }],
   },
   openGraph: {
     title: 'skeu - Your Skin, Your Glow',

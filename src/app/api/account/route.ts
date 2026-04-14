@@ -25,16 +25,6 @@ export async function GET(req: NextRequest) {
     const decoded = verifyToken(token) as any
     if (!decoded?.email) return NextResponse.json({ user: null })
 
-    if (decoded.role === 'admin') {
-      return NextResponse.json({
-        user: {
-          name: decoded.name || 'Administrateur',
-          email: decoded.email,
-          role: 'admin',
-        },
-      })
-    }
-
     await connectDB()
     const user = await User.findOne({ email: decoded.email }).lean()
     if (!user) return NextResponse.json({ user: null })
@@ -63,13 +53,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 })
     }
 
-    const adminEmail = (process.env.ADMIN_EMAIL || 'admin@skeucosmetique.com').toLowerCase()
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@2024!'
-
-    if (action === 'login' && normalizedEmail === adminEmail && rawPassword === adminPassword) {
-      return buildAuthResponse({ email: normalizedEmail, role: 'admin', name: 'Administrateur' })
-    }
-
     await connectDB()
 
     if (action === 'register') {
@@ -82,18 +65,21 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Un compte existe deja avec cet email' }, { status: 409 })
       }
 
+      const adminEmail = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase()
+      const role: 'customer' | 'admin' = adminEmail && normalizedEmail === adminEmail ? 'admin' : 'customer'
+
       const hashedPassword = await bcrypt.hash(rawPassword, 10)
       const createdUser = await User.create({
         name: trimmedName,
         email: normalizedEmail,
         phone: String(phone || '').trim(),
         password: hashedPassword,
-        role: 'customer',
+        role,
       })
 
       return buildAuthResponse({
         email: createdUser.email,
-        role: 'customer',
+        role,
         name: createdUser.name,
       })
     }

@@ -15,16 +15,9 @@ type SessionUser = {
   role: 'customer' | 'admin'
 }
 
-const emptyRegister = { name: '', email: '', phone: '', password: '' }
-const emptyLogin = { email: '', password: '' }
-
 export default function AccountPage() {
   const [user, setUser] = useState<SessionUser | null>(null)
   const [loading, setLoading] = useState(true)
-  const [registerForm, setRegisterForm] = useState(emptyRegister)
-  const [loginForm, setLoginForm] = useState(emptyLogin)
-  const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
-  const [submitting, setSubmitting] = useState<'register' | 'login' | null>(null)
 
   const loadSession = async () => {
     setLoading(true)
@@ -41,46 +34,9 @@ export default function AccountPage() {
     loadSession()
   }, [])
 
-  const submitAccountAction = async (action: 'register' | 'login') => {
-    setSubmitting(action)
-    setMessage(null)
-    const payload =
-      action === 'register'
-        ? { action, ...registerForm }
-        : { action, ...loginForm }
-
-    try {
-      const res = await fetch('/api/account', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-
-      if (!res.ok) {
-        setMessage({ type: 'err', text: data.error || 'Une erreur est survenue.' })
-        return
-      }
-
-      if (action === 'register') setRegisterForm(emptyRegister)
-      if (action === 'login') setLoginForm(emptyLogin)
-
-      setMessage({
-        type: 'ok',
-        text: action === 'register' ? 'Compte cree avec succes.' : 'Connexion reussie.',
-      })
-      await loadSession()
-    } catch {
-      setMessage({ type: 'err', text: 'Erreur reseau. Reessayez.' })
-    } finally {
-      setSubmitting(null)
-    }
-  }
-
   const logout = async () => {
     await fetch('/api/account', { method: 'DELETE' })
     setUser(null)
-    setMessage({ type: 'ok', text: 'Vous etes deconnecte.' })
   }
 
   return (
@@ -94,21 +50,9 @@ export default function AccountPage() {
               Mon <span className="text-gradient font-semibold italic">compte</span>
             </h1>
             <p className="text-gray-500 text-sm sm:text-base">
-              Creez votre compte si vous etes nouveau. Si vous avez deja un compte, connectez-vous pour voir vos informations et vous deconnecter.
+              Consultez votre profil quand vous etes connecte. Sinon, utilisez le bouton de connexion.
             </p>
           </div>
-
-          {message && (
-            <div
-              className={`mb-6 rounded-2xl px-4 py-3 text-sm border ${
-                message.type === 'ok'
-                  ? 'bg-green-50 border-green-200 text-green-700'
-                  : 'bg-red-50 border-red-200 text-red-600'
-              }`}
-            >
-              {message.text}
-            </div>
-          )}
 
           {loading ? (
             <div className="flex items-center justify-center py-24 text-violet-600">
@@ -165,8 +109,7 @@ export default function AccountPage() {
                 <h3 className="font-display text-3xl mb-3">Acces rapide</h3>
                 <div className="space-y-3 text-sm text-gray-500">
                   <p>Votre session est active et securisee par cookie httpOnly.</p>
-                  <p>Les comptes clients sont sauvegardes dans MongoDB.</p>
-                  <p>L&apos;administrateur peut aussi se connecter depuis cette page puis acceder au dashboard.</p>
+                  <p>Les comptes sont sauvegardes dans MongoDB.</p>
                 </div>
                 <div className="mt-6 space-y-3">
                   <Link href="/products" className="btn-primary text-sm inline-block w-full text-center">
@@ -179,81 +122,14 @@ export default function AccountPage() {
               </div>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div className="bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
-                <h2 className="font-display text-3xl mb-2">S&apos;inscrire</h2>
-                <p className="text-gray-500 text-sm mb-6">Creez votre compte client pour acceder a votre espace personnel.</p>
-                <div className="space-y-4">
-                  <input
-                    type="text"
-                    value={registerForm.name}
-                    onChange={(e) => setRegisterForm((prev) => ({ ...prev, name: e.target.value }))}
-                    placeholder="Nom complet"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <input
-                    type="email"
-                    value={registerForm.email}
-                    onChange={(e) => setRegisterForm((prev) => ({ ...prev, email: e.target.value }))}
-                    placeholder="Email"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <input
-                    type="text"
-                    value={registerForm.phone}
-                    onChange={(e) => setRegisterForm((prev) => ({ ...prev, phone: e.target.value }))}
-                    placeholder="Telephone"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <input
-                    type="password"
-                    value={registerForm.password}
-                    onChange={(e) => setRegisterForm((prev) => ({ ...prev, password: e.target.value }))}
-                    placeholder="Mot de passe"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <button
-                    onClick={() => submitAccountAction('register')}
-                    disabled={submitting !== null}
-                    className="btn-primary w-full text-sm inline-flex items-center justify-center gap-2"
-                  >
-                    {submitting === 'register' ? <Loader2 size={16} className="animate-spin" /> : null}
-                    Creer un compte
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
-                <h2 className="font-display text-3xl mb-2">Se connecter</h2>
-                <p className="text-gray-500 text-sm mb-6">Connectez-vous si vous avez deja un compte. L&apos;admin peut aussi se connecter ici.</p>
-                <div className="space-y-4">
-                  <input
-                    type="email"
-                    value={loginForm.email}
-                    onChange={(e) => setLoginForm((prev) => ({ ...prev, email: e.target.value }))}
-                    placeholder="Email"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <input
-                    type="password"
-                    value={loginForm.password}
-                    onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
-                    placeholder="Mot de passe"
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                  />
-                  <button
-                    onClick={() => submitAccountAction('login')}
-                    disabled={submitting !== null}
-                    className="btn-outline w-full text-sm inline-flex items-center justify-center gap-2"
-                  >
-                    {submitting === 'login' ? <Loader2 size={16} className="animate-spin" /> : null}
-                    Se connecter
-                  </button>
-                </div>
-                <div className="mt-6 rounded-2xl bg-violet-50 px-4 py-4 text-xs text-violet-700">
-                  Admin par defaut : admin@skeucosmetique.com / Admin@2024!
-                </div>
-              </div>
+            <div className="max-w-xl bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
+              <h2 className="font-display text-3xl mb-3">Connexion requise</h2>
+              <p className="text-gray-500 text-sm mb-6">
+                Vous n&apos;etes pas connecte. Cliquez sur le bouton ci-dessous pour acceder a la page de connexion et d&apos;inscription.
+              </p>
+              <Link href="/login" className="btn-primary inline-flex items-center justify-center text-sm px-6">
+                Se connecter
+              </Link>
             </div>
           )}
         </section>
