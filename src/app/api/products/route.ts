@@ -58,6 +58,13 @@ export async function POST(req: NextRequest) {
     const product = await Product.create(body)
     return NextResponse.json({ product }, { status: 201 })
   } catch (error: any) {
+    const message = String(error?.message || '')
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
+
+    if (dbUnavailable) {
+      return NextResponse.json({ error: 'Base de donnees indisponible. Reessayez plus tard.' }, { status: 503 })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 400 })
   }
 }
