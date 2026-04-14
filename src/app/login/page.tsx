@@ -6,7 +6,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import BottomNav from '@/components/layout/BottomNav'
 import CartSidebar from '@/components/shop/CartSidebar'
-import { Loader2 } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 
 const emptyRegister = { name: '', email: '', phone: '', password: '' }
 const emptyLogin = { email: '', password: '' }
@@ -20,6 +20,8 @@ export default function LoginPage() {
   const [loginForm, setLoginForm] = useState(emptyLogin)
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
   const [submitting, setSubmitting] = useState<'register' | 'login' | null>(null)
+  const [showLoginPassword, setShowLoginPassword] = useState(false)
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false)
 
   const submitAccountAction = async (action: 'register' | 'login') => {
     setSubmitting(action)
@@ -93,13 +95,23 @@ export default function LoginPage() {
                   placeholder="Email"
                   className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
                 />
-                <input
-                  type="password"
-                  value={loginForm.password}
-                  onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
-                  placeholder="Mot de passe"
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                />
+                <div className="relative">
+                  <input
+                    type={showLoginPassword ? 'text' : 'password'}
+                    value={loginForm.password}
+                    onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
+                    placeholder="Mot de passe"
+                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400 pr-11"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowLoginPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+                    aria-label={showLoginPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                  >
+                    {showLoginPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
+                </div>
                 <button
                   onClick={() => submitAccountAction('login')}
                   disabled={submitting !== null}
@@ -143,13 +155,23 @@ export default function LoginPage() {
                   placeholder="Telephone"
                   className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
                 />
-                <input
-                  type="password"
-                  value={registerForm.password}
-                  onChange={(e) => setRegisterForm((prev) => ({ ...prev, password: e.target.value }))}
-                  placeholder="Mot de passe"
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                />
+                <div className="relative">
+                  <input
+                    type={showRegisterPassword ? 'text' : 'password'}
+                    value={registerForm.password}
+                    onChange={(e) => setRegisterForm((prev) => ({ ...prev, password: e.target.value }))}
+                    placeholder="Mot de passe"
+                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400 pr-11"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowRegisterPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+                    aria-label={showRegisterPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                  >
+                    {showRegisterPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
+                </div>
                 <button
                   onClick={() => submitAccountAction('register')}
                   disabled={submitting !== null}

@@ -37,13 +37,8 @@ export async function GET(req: NextRequest) {
         role: user.role,
       },
     })
-  } catch (error: any) {
-    const message = String(error?.message || '')
-    if (message.includes('MONGODB_URI manquant') || message.includes('ECONN')) {
-      return NextResponse.json({ user: null, warning: 'Base de donnees indisponible' })
-    }
-
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  } catch {
+    return NextResponse.json({ user: null, warning: 'Session indisponible temporairement' })
   }
 }
 
