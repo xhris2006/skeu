@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ products, total: products.length })
   } catch (error: any) {
     const message = String(error?.message || '')
-    const dbUnavailable = message.includes('MONGODB_URI manquant') || message.includes('ECONN')
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
 
     if (dbUnavailable) {
       return NextResponse.json({ products: [], total: 0, warning: 'Base de donnees indisponible' })
