@@ -10,7 +10,8 @@ interface AdminUser { _id: string; name: string; email: string; phone?: string; 
 
 type Tab = 'dashboard' | 'products' | 'orders' | 'users'
 
-const EMPTY_PRODUCT = { name: '', description: '', price: '', category: '', stock: '', badge: '', discount: '', images: '', featured: false }
+const DEFAULT_CATEGORIES = ['Visage', 'Corps', 'Cheveux', 'Lèvres', 'Solaire', 'Parfums']
+const EMPTY_PRODUCT = { name: '', description: '', price: '', category: '', stock: '', badge: '', discount: '', images: [] as string[], featured: false }
 
 export default function AdminDashboard() {
   const router  = useRouter()
@@ -54,9 +55,11 @@ export default function AdminDashboard() {
     router.push('/admin/login')
   }
 
+  const categoryOptions = Array.from(new Set([...DEFAULT_CATEGORIES, ...products.map((p) => p.category).filter(Boolean)])).sort()
+
   const openCreate = () => { setForm(EMPTY_PRODUCT); setEditId(null); setShowForm(true) }
   const openEdit   = (p: Product) => {
-    setForm({ name: p.name, description: (p as any).description || '', price: String(p.price), category: p.category, stock: String(p.stock), badge: p.badge || '', discount: '', images: p.images?.join(', ') || '', featured: (p as any).featured || false })
+    setForm({ name: p.name, description: (p as any).description || '', price: String(p.price), category: p.category, stock: String(p.stock), badge: p.badge || '', discount: '', images: p.images || [], featured: (p as any).featured || false })
     setEditId(p._id)
     setShowForm(true)
   }
@@ -64,12 +67,16 @@ export default function AdminDashboard() {
   const saveProduct = async () => {
     setSaving(true)
     try {
+      if (!form.name.trim() || !form.description.trim() || !form.category.trim()) {
+        throw new Error('Nom, description et categorie sont requis')
+      }
+
       const payload = {
         name: form.name, description: form.description,
         price: Number(form.price), category: form.category,
         stock: Number(form.stock), badge: form.badge || undefined,
         discount: form.discount ? Number(form.discount) : undefined,
-        images: form.images.split(',').map(s => s.trim()).filter(Boolean),
+        images: form.images,
         featured: form.featured,
       }
       const url    = editId ? `/api/products/${editId}` : '/api/products'
@@ -86,6 +93,21 @@ export default function AdminDashboard() {
     if (!confirm('Supprimer ce produit ?')) return
     await fetch(`/api/products/${id}`, { method: 'DELETE', headers: authHeader() })
     fetchAll()
+  }
+
+  const onSelectImages = async (files: FileList | null) => {
+    if (!files?.length) return
+
+    const toBase64 = (file: File) =>
+      new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(String(reader.result || ''))
+        reader.onerror = reject
+        reader.readAsDataURL(file)
+      })
+
+    const encoded = await Promise.all(Array.from(files).map(toBase64))
+    setForm((prev) => ({ ...prev, images: [...prev.images, ...encoded] }))
   }
 
   const statusColor: Record<string, string> = {
@@ -370,11 +392,9 @@ export default function AdminDashboard() {
                 { key: 'name',        label: 'Nom *',         type: 'text' },
                 { key: 'description', label: 'Description *', type: 'textarea' },
                 { key: 'price',       label: 'Prix (FCFA) *', type: 'number' },
-                { key: 'category',    label: 'Categorie *',   type: 'text' },
                 { key: 'stock',       label: 'Stock *',       type: 'number' },
                 { key: 'badge',       label: 'Badge (ex: Best Seller)', type: 'text' },
                 { key: 'discount',    label: 'Reduction (%)', type: 'number' },
-                { key: 'images',      label: 'URLs images (separees par virgule)', type: 'text' },
               ].map(f => (
                 <div key={f.key}>
                   <label className="block text-xs font-medium text-gray-600 mb-1">{f.label}</label>
@@ -387,6 +407,48 @@ export default function AdminDashboard() {
                   )}
                 </div>
               ))}
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Categorie *</label>
+                <select
+                  value={form.category}
+                  onChange={(e) => setForm((p) => ({ ...p, category: e.target.value }))}
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
+                >
+                  <option value="">Selectionner une categorie</option>
+                  {categoryOptions.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Images du produit</label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => onSelectImages(e.target.files)}
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
+                />
+                {form.images.length > 0 && (
+                  <div className="grid grid-cols-3 gap-2 mt-3">
+                    {form.images.map((image, index) => (
+                      <div key={`${index}-${image.slice(0, 20)}`} className="relative">
+                        <img src={image} alt={`Apercu ${index + 1}`} className="w-full h-20 object-cover rounded-lg border" />
+                        <button
+                          type="button"
+                          onClick={() => setForm((p) => ({ ...p, images: p.images.filter((_, i) => i !== index) }))}
+                          className="absolute -top-2 -right-2 bg-black/70 text-white rounded-full p-1"
+                          aria-label="Supprimer l'image"
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
                 <input type="checkbox" checked={form.featured} onChange={e => setForm(p => ({ ...p, featured: e.target.checked }))} className="w-4 h-4 accent-violet-600" />
                 Produit vedette (affiche sur la page d'accueil)
@@ -405,4 +467,3 @@ export default function AdminDashboard() {
     </div>
   )
 }
-
