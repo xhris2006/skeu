@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ products, total: products.length })
   } catch (error: any) {
     const message = String(error?.message || '')
-    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth/i.test(message)
 
     if (dbUnavailable) {
       return NextResponse.json({ products: [], total: 0, warning: 'Base de donnees indisponible' })
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ product }, { status: 201 })
   } catch (error: any) {
     const message = String(error?.message || '')
-    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth/i.test(message)
 
     if (dbUnavailable) {
       return NextResponse.json({ error: 'Base de donnees indisponible. Reessayez plus tard.' }, { status: 503 })
