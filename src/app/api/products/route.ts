@@ -36,6 +36,13 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ products, total: products.length })
   } catch (error: any) {
+    const message = String(error?.message || '')
+    const dbUnavailable = message.includes('MONGODB_URI manquant') || message.includes('ECONN')
+
+    if (dbUnavailable) {
+      return NextResponse.json({ products: [], total: 0, warning: 'Base de donnees indisponible' })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

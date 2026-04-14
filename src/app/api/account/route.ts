@@ -38,6 +38,11 @@ export async function GET(req: NextRequest) {
       },
     })
   } catch (error: any) {
+    const message = String(error?.message || '')
+    if (message.includes('MONGODB_URI manquant') || message.includes('ECONN')) {
+      return NextResponse.json({ user: null, warning: 'Base de donnees indisponible' })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
@@ -104,6 +109,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error: 'Action invalide' }, { status: 400 })
   } catch (error: any) {
+    const message = String(error?.message || '')
+    if (message.includes('MONGODB_URI manquant') || message.includes('ECONN')) {
+      return NextResponse.json({ error: 'Base de donnees indisponible. Reessayez plus tard.' }, { status: 503 })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

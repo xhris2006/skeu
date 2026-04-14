@@ -38,6 +38,11 @@ export async function POST(req: NextRequest) {
 
     return response
   } catch (error: any) {
+    const message = String(error?.message || '')
+    if (message.includes('MONGODB_URI manquant') || message.includes('ECONN')) {
+      return NextResponse.json({ error: 'Base de donnees indisponible. Reessayez plus tard.' }, { status: 503 })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
