@@ -34,7 +34,6 @@ Renseignez ensuite :
 - `MONGODB_URI`
 - `JWT_SECRET`
 - `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
 - `FAPSHI_API_USER`
 - `FAPSHI_API_KEY`
 - `FAPSHI_BASE_URL`
@@ -78,14 +77,13 @@ npm run dev
 La connexion admin utilise :
 
 - `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
 
 Acces :
 
 - login admin : `/admin/login`
 - dashboard admin : `/admin`
 
-Le compte admin peut aussi se connecter via `/account`.
+Le compte admin peut se connecter via `/admin/login` ou via `/login`.
 
 ## Compte client
 
@@ -140,7 +138,6 @@ Variables minimales a definir dans Vercel :
 - `MONGODB_URI`
 - `JWT_SECRET`
 - `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
 - `FAPSHI_API_USER`
 - `FAPSHI_API_KEY`
 - `FAPSHI_BASE_URL`
@@ -164,7 +161,7 @@ npm run start
 ## A verifier avant mise en prod
 
 - utiliser un `JWT_SECRET` long et unique
-- definir un vrai mot de passe admin fort
+- creer le compte admin via /login avec l'email `ADMIN_EMAIL` et un mot de passe fort
 - connecter une vraie base MongoDB production
 - passer Fapshi en mode live
 - verifier `NEXT_PUBLIC_APP_URL`

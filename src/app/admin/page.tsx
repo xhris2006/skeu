@@ -1,12 +1,13 @@
-﻿'use client'
+'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { LayoutDashboard, Package, ShoppingBag, TrendingUp, LogOut, Plus, Edit, Trash2, Loader2, X, Check } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingBag, TrendingUp, LogOut, Plus, Edit, Trash2, Loader2, X, Check, Users } from 'lucide-react'
 
 interface Product { _id: string; name: string; price: number; category: string; stock: number; active: boolean; badge?: string; images: string[] }
 interface Order   { _id: string; orderNumber: string; clientName: string; clientPhone: string; total: number; paymentStatus: string; createdAt: string; items: any[] }
+interface AdminUser { _id: string; name: string; email: string; phone?: string; role: 'customer' | 'admin'; createdAt: string }
 
-type Tab = 'dashboard' | 'products' | 'orders'
+type Tab = 'dashboard' | 'products' | 'orders' | 'users'
 
 const EMPTY_PRODUCT = { name: '', description: '', price: '', category: '', stock: '', badge: '', discount: '', images: '', featured: false }
 
@@ -15,6 +16,7 @@ export default function AdminDashboard() {
   const [tab,      setTab]     = useState<Tab>('dashboard')
   const [products, setProducts] = useState<Product[]>([])
   const [orders,   setOrders]   = useState<Order[]>([])
+  const [users,    setUsers]    = useState<AdminUser[]>([])
   const [loading,  setLoading]  = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editId,   setEditId]   = useState<string | null>(null)
@@ -29,14 +31,17 @@ export default function AdminDashboard() {
   const fetchAll = async () => {
     setLoading(true)
     try {
-      const [pRes, oRes] = await Promise.all([
+      const [pRes, oRes, uRes] = await Promise.all([
         fetch('/api/products?limit=100'),
         fetch('/api/orders'),
+        fetch('/api/users'),
       ])
       const pData = await pRes.json()
       const oData = oRes.ok ? await oRes.json() : { orders: [] }
+      const uData = uRes.ok ? await uRes.json() : { users: [] }
       setProducts(pData.products || [])
       setOrders(oData.orders || [])
+      setUsers(uData.users || [])
     } finally {
       setLoading(false)
     }
@@ -103,6 +108,7 @@ export default function AdminDashboard() {
             ['dashboard', 'Tableau de bord', LayoutDashboard],
             ['products', 'Produits', Package],
             ['orders', 'Commandes', ShoppingBag],
+            ['users', 'Utilisateurs', Users],
           ] as const).map(([id, label, Icon]) => (
             <button key={id} onClick={() => setTab(id)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${tab === id ? 'bg-violet-700 text-white' : 'text-violet-200 hover:bg-violet-800'}`}>
               <Icon size={16} /> {label}
@@ -125,9 +131,9 @@ export default function AdminDashboard() {
         </div>
         {/* Mobile tabs */}
         <div className="md:hidden flex gap-2 mb-6 overflow-x-auto">
-          {(['dashboard','products','orders'] as Tab[]).map(t => (
+          {(['dashboard','products','orders','users'] as Tab[]).map(t => (
             <button key={t} onClick={() => setTab(t)} className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all ${tab === t ? 'gradient-brand text-white' : 'bg-white text-gray-600 border'}`}>
-              {t === 'dashboard' ? 'Dashboard' : t === 'products' ? 'Produits' : 'Commandes'}
+              {t === 'dashboard' ? 'Dashboard' : t === 'products' ? 'Produits' : t === 'orders' ? 'Commandes' : 'Utilisateurs'}
             </button>
           ))}
         </div>
@@ -142,11 +148,12 @@ export default function AdminDashboard() {
         {tab === 'dashboard' && (
           <div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Tableau de bord</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               {[
                 { label: 'Produits',    value: products.length,                icon: Package,     color: 'bg-violet-50 text-violet-700' },
                 { label: 'Commandes',   value: orders.length,                  icon: ShoppingBag, color: 'bg-blue-50 text-blue-700' },
                 { label: 'Revenus (FCFA)', value: totalRevenue.toLocaleString(), icon: TrendingUp,  color: 'bg-green-50 text-green-700' },
+                { label: 'Utilisateurs', value: users.length, icon: Users, color: 'bg-amber-50 text-amber-700' },
               ].map(s => (
                 <div key={s.label} className={`rounded-2xl p-6 ${s.color}`}>
                   <s.icon size={24} className="mb-3 opacity-70" />
@@ -258,6 +265,40 @@ export default function AdminDashboard() {
                       <td className="px-4 py-3 text-xs text-gray-400 hidden md:table-cell">
                         {new Date(o.createdAt).toLocaleDateString('fr-FR')}
                       </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {tab === 'users' && (
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Gestion utilisateurs ({users.length})</h2>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 text-gray-500 text-xs uppercase">
+                  <tr>
+                    <th className="px-4 py-3 text-left">Nom</th>
+                    <th className="px-4 py-3 text-left hidden sm:table-cell">Email</th>
+                    <th className="px-4 py-3 text-left">Role</th>
+                    <th className="px-4 py-3 text-left hidden md:table-cell">Telephone</th>
+                    <th className="px-4 py-3 text-left hidden md:table-cell">Creation</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {users.map((u) => (
+                    <tr key={u._id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-gray-800">{u.name}</td>
+                      <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">{u.email}</td>
+                      <td className="px-4 py-3">
+                        <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${u.role === 'admin' ? 'bg-violet-100 text-violet-700' : 'bg-gray-100 text-gray-600'}`}>
+                          {u.role}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-gray-500 hidden md:table-cell">{u.phone || '-'}</td>
+                      <td className="px-4 py-3 text-xs text-gray-400 hidden md:table-cell">{new Date(u.createdAt).toLocaleDateString('fr-FR')}</td>
                     </tr>
                   ))}
                 </tbody>
