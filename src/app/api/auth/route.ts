@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     return response
   } catch (error: any) {
     const message = String(error?.message || '')
-    if (message.includes('MONGODB_URI manquant') || message.includes('ECONN')) {
+    if (/MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)) {
       return NextResponse.json({ error: 'Base de donnees indisponible. Reessayez plus tard.' }, { status: 503 })
     }
 

@@ -14,6 +14,13 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ users })
   } catch (error: any) {
+    const message = String(error?.message || '')
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
+
+    if (dbUnavailable) {
+      return NextResponse.json({ users: [], warning: 'Base de donnees indisponible' })
+    }
+
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

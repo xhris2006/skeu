@@ -117,8 +117,11 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
-        <div className="p-4">
-          <button onClick={logout} className="w-full flex items-center gap-2 px-4 py-3 text-violet-300 hover:text-white text-sm transition-colors">
+        <div className="p-4 space-y-2">
+          <Link href="/products" className="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-white text-violet-900 text-sm font-medium">
+            Retourner a la boutique
+          </Link>
+          <button onClick={logout} className="w-full flex items-center justify-center gap-2 px-4 py-3 text-violet-300 hover:text-white text-sm transition-colors">
             <LogOut size={16} /> Deconnexion
           </button>
         </div>
