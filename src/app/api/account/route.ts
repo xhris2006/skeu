@@ -25,6 +25,16 @@ export async function GET(req: NextRequest) {
     const decoded = verifyToken(token) as any
     if (!decoded?.email) return NextResponse.json({ user: null })
 
+    if (decoded.role === 'admin') {
+      return NextResponse.json({
+        user: {
+          name: decoded.name || 'Administrateur',
+          email: decoded.email,
+          role: 'admin',
+        },
+      })
+    }
+
     await connectDB()
     const user = await User.findOne({ email: decoded.email }).lean()
     if (!user) return NextResponse.json({ user: null })
