@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -12,8 +11,11 @@ import { Loader2 } from 'lucide-react'
 const emptyRegister = { name: '', email: '', phone: '', password: '' }
 const emptyLogin = { email: '', password: '' }
 
+type Mode = 'login' | 'register'
+
 export default function LoginPage() {
   const router = useRouter()
+  const [mode, setMode] = useState<Mode>('login')
   const [registerForm, setRegisterForm] = useState(emptyRegister)
   const [loginForm, setLoginForm] = useState(emptyLogin)
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
@@ -59,32 +61,66 @@ export default function LoginPage() {
       <Navbar />
       <CartSidebar />
       <main className="min-h-screen bg-gradient-to-b from-violet-50/60 to-white pb-28 md:pb-10">
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <div className="max-w-2xl mb-10">
-            <h1 className="font-display text-4xl sm:text-5xl font-light mb-3">
-              Connexion <span className="text-gradient font-semibold italic">et inscription</span>
+        <section className="max-w-xl mx-auto px-4 sm:px-6 py-14">
+          <div className="bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
+            <h1 className="font-display text-4xl font-light mb-2">
+              {mode === 'login' ? 'Se connecter' : 'S\'inscrire'}
             </h1>
-            <p className="text-gray-500 text-sm sm:text-base">
-              Connectez-vous a votre compte, ou inscrivez-vous si vous etes nouveau.
+            <p className="text-gray-500 text-sm mb-6">
+              {mode === 'login'
+                ? 'Connectez-vous pour acceder a votre compte.'
+                : 'Creez votre compte si vous etes nouveau.'}
             </p>
-          </div>
 
-          {message && (
-            <div
-              className={`mb-6 rounded-2xl px-4 py-3 text-sm border ${
-                message.type === 'ok'
-                  ? 'bg-green-50 border-green-200 text-green-700'
-                  : 'bg-red-50 border-red-200 text-red-600'
-              }`}
-            >
-              {message.text}
-            </div>
-          )}
+            {message && (
+              <div
+                className={`mb-6 rounded-2xl px-4 py-3 text-sm border ${
+                  message.type === 'ok'
+                    ? 'bg-green-50 border-green-200 text-green-700'
+                    : 'bg-red-50 border-red-200 text-red-600'
+                }`}
+              >
+                {message.text}
+              </div>
+            )}
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
-              <h2 className="font-display text-3xl mb-2">S&apos;inscrire</h2>
-              <p className="text-gray-500 text-sm mb-6">Creez votre compte pour acceder a votre espace personnel.</p>
+            {mode === 'login' ? (
+              <div className="space-y-4">
+                <input
+                  type="email"
+                  value={loginForm.email}
+                  onChange={(e) => setLoginForm((prev) => ({ ...prev, email: e.target.value }))}
+                  placeholder="Email"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
+                />
+                <input
+                  type="password"
+                  value={loginForm.password}
+                  onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
+                  placeholder="Mot de passe"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
+                />
+                <button
+                  onClick={() => submitAccountAction('login')}
+                  disabled={submitting !== null}
+                  className="btn-primary w-full text-sm inline-flex items-center justify-center gap-2"
+                >
+                  {submitting === 'login' ? <Loader2 size={16} className="animate-spin" /> : null}
+                  Se connecter
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode('register')
+                    setMessage(null)
+                  }}
+                  className="btn-outline w-full text-sm"
+                >
+                  Je n&apos;ai pas de compte, s&apos;inscrire
+                </button>
+              </div>
+            ) : (
               <div className="space-y-4">
                 <input
                   type="text"
@@ -122,43 +158,19 @@ export default function LoginPage() {
                   {submitting === 'register' ? <Loader2 size={16} className="animate-spin" /> : null}
                   Creer un compte
                 </button>
-              </div>
-            </div>
 
-            <div className="bg-white border border-violet-100 rounded-[32px] p-8 shadow-sm">
-              <h2 className="font-display text-3xl mb-2">Se connecter</h2>
-              <p className="text-gray-500 text-sm mb-6">Connectez-vous si vous avez deja un compte.</p>
-              <div className="space-y-4">
-                <input
-                  type="email"
-                  value={loginForm.email}
-                  onChange={(e) => setLoginForm((prev) => ({ ...prev, email: e.target.value }))}
-                  placeholder="Email"
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                />
-                <input
-                  type="password"
-                  value={loginForm.password}
-                  onChange={(e) => setLoginForm((prev) => ({ ...prev, password: e.target.value }))}
-                  placeholder="Mot de passe"
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:border-violet-400"
-                />
                 <button
-                  onClick={() => submitAccountAction('login')}
-                  disabled={submitting !== null}
-                  className="btn-outline w-full text-sm inline-flex items-center justify-center gap-2"
+                  type="button"
+                  onClick={() => {
+                    setMode('login')
+                    setMessage(null)
+                  }}
+                  className="btn-outline w-full text-sm"
                 >
-                  {submitting === 'login' ? <Loader2 size={16} className="animate-spin" /> : null}
-                  Se connecter
+                  J&apos;ai deja un compte, se connecter
                 </button>
               </div>
-              <p className="mt-6 text-xs text-violet-700 bg-violet-50 rounded-2xl px-4 py-4">
-                Le compte admin est determine automatiquement via la variable d&apos;environnement <strong>ADMIN_EMAIL</strong>.
-              </p>
-              <Link href="/account" className="mt-4 inline-block text-xs text-violet-700 hover:underline">
-                Retourner vers mon compte
-              </Link>
-            </div>
+            )}
           </div>
         </section>
       </main>

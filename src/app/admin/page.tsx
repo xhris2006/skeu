@@ -1,7 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { LayoutDashboard, Package, ShoppingBag, TrendingUp, LogOut, Plus, Edit, Trash2, Loader2, X, Check, Users } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingBag, TrendingUp, LogOut, Plus, Edit, Trash2, Loader2, X, Check, Users, Menu } from 'lucide-react'
 
 interface Product { _id: string; name: string; price: number; category: string; stock: number; active: boolean; badge?: string; images: string[] }
 interface Order   { _id: string; orderNumber: string; clientName: string; clientPhone: string; total: number; paymentStatus: string; createdAt: string; items: any[] }
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
   const [form,     setForm]     = useState<typeof EMPTY_PRODUCT>(EMPTY_PRODUCT)
   const [saving,   setSaving]   = useState(false)
   const [msg,      setMsg]      = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const authHeader = () => ({ 'Content-Type': 'application/json' })
 
@@ -127,16 +129,60 @@ export default function AdminDashboard() {
         {/* Mobile header */}
         <div className="md:hidden flex items-center justify-between mb-6">
           <h1 className="font-display text-2xl text-gradient font-semibold">Admin</h1>
-          <button onClick={logout} className="text-gray-400 hover:text-gray-600"><LogOut size={20} /></button>
+          <button onClick={() => setMenuOpen(true)} className="p-2 rounded-lg border text-gray-500 hover:text-gray-700" aria-label="Ouvrir le menu admin">
+            <Menu size={20} />
+          </button>
         </div>
-        {/* Mobile tabs */}
-        <div className="md:hidden flex gap-2 mb-6 overflow-x-auto">
-          {(['dashboard','products','orders','users'] as Tab[]).map(t => (
-            <button key={t} onClick={() => setTab(t)} className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all ${tab === t ? 'gradient-brand text-white' : 'bg-white text-gray-600 border'}`}>
-              {t === 'dashboard' ? 'Dashboard' : t === 'products' ? 'Produits' : t === 'orders' ? 'Commandes' : 'Utilisateurs'}
-            </button>
-          ))}
-        </div>
+
+        {menuOpen && (
+          <>
+            <button
+              className="fixed inset-0 bg-black/40 z-40"
+              aria-label="Fermer le menu admin"
+              onClick={() => setMenuOpen(false)}
+            />
+            <aside className="fixed top-0 left-0 h-full w-72 bg-violet-950 text-white z-50 p-5 flex flex-col">
+              <div className="flex items-center justify-between border-b border-violet-800 pb-4 mb-4">
+                <div>
+                  <p className="font-display text-xl">Menu admin</p>
+                  <p className="text-violet-300 text-xs">Navigation</p>
+                </div>
+                <button onClick={() => setMenuOpen(false)} className="text-violet-200 hover:text-white" aria-label="Fermer le menu">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <nav className="space-y-2">
+                {([
+                  ['dashboard', 'Tableau de bord', LayoutDashboard],
+                  ['products', 'Produits', Package],
+                  ['orders', 'Commandes', ShoppingBag],
+                  ['users', 'Utilisateurs', Users],
+                ] as const).map(([id, label, Icon]) => (
+                  <button
+                    key={id}
+                    onClick={() => {
+                      setTab(id)
+                      setMenuOpen(false)
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm ${tab === id ? 'bg-violet-700 text-white' : 'text-violet-100 hover:bg-violet-800'}`}
+                  >
+                    <Icon size={16} /> {label}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="mt-auto space-y-2 pt-5">
+                <Link href="/" onClick={() => setMenuOpen(false)} className="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-white text-violet-900 text-sm font-medium">
+                  Retourner au site
+                </Link>
+                <button onClick={logout} className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-violet-800 text-white text-sm">
+                  <LogOut size={16} /> Deconnexion
+                </button>
+              </div>
+            </aside>
+          </>
+        )}
 
         {msg && (
           <div className="mb-4 bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3 flex items-center justify-between">
