@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>yunus Africa â€” Payment Infrastructure for Africa</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml"/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -15,6 +16,9 @@
   --blue-mid:#234480;
   --blue-light:#EDF1F8;
   --blue-accent:#3461B8;
+  --purple:#6D28D9;
+  --purple-dark:#5B21B6;
+  --purple-light:#F3E8FF;
   --white:#FFFFFF;
   --off-white:#F9FAFB;
   --gray:#F2F4F7;
@@ -74,7 +78,7 @@ img{display:block;max-width:100%}
   font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--white);
 }
 .sb-logo-mark{
-  width:32px;height:32px;background:var(--yellow);
+  width:32px;height:32px;background:var(--purple);
   border-radius:7px;display:flex;align-items:center;justify-content:center;
 }
 .sb-close{
@@ -124,7 +128,7 @@ img{display:block;max-width:100%}
 .topnav.raised{box-shadow:var(--shadow-sm)}
 .topnav-inner{
   max-width:1200px;margin:0 auto;padding:0 1.5rem;
-  height:100%;display:flex;align-items:center;gap:1rem;
+  height:100%;display:flex;align-items:center;gap:2rem;
 }
 .tn-logo{
   display:flex;align-items:center;gap:.6rem;
@@ -132,23 +136,17 @@ img{display:block;max-width:100%}
   flex-shrink:0;
 }
 .tn-logo-mark{
-  width:30px;height:30px;background:var(--yellow);
+  width:30px;height:30px;background:var(--purple);
   border-radius:7px;display:flex;align-items:center;justify-content:center;
 }
-.tn-links{display:none;align-items:center;gap:1.15rem;flex:1;justify-content:center;min-width:0}
+.tn-links{display:none;align-items:center;gap:2rem;flex:1;justify-content:center}
 .tn-links a{
   font-size:.85rem;font-weight:500;color:var(--text-muted);
   transition:color var(--ease);letter-spacing:.01em;
 }
-.tn-links a[href="#how-it-works"]{
-  min-width:132px;
-  text-align:center;
-  white-space:nowrap;
-}
 .tn-links a:hover{color:var(--blue)}
-.tn-right{display:none;align-items:center;gap:.65rem;flex-shrink:0}
+.tn-right{display:none;align-items:center;gap:.75rem;margin-left:auto}
 .lang-switch{display:flex;align-items:center;gap:.35rem}
-.lang-switch.top{margin-left:auto;flex-shrink:0}
 .lang-btn{
   min-width:42px;height:34px;padding:0 .75rem;border-radius:999px;
   border:1px solid var(--border);background:var(--white);color:var(--blue);
@@ -156,10 +154,12 @@ img{display:block;max-width:100%}
 }
 .lang-btn:hover{border-color:var(--blue-accent);color:var(--blue-accent)}
 .lang-btn.active{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.sb-lang{padding:1rem 1.5rem 0;border-top:1px solid rgba(255,255,255,.07)}
+.sb-lang .lang-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:var(--white)}
+.sb-lang .lang-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--blue)}
 .burger{
-  margin-left:.15rem;background:none;border:none;cursor:pointer;
+  margin-left:auto;background:none;border:none;cursor:pointer;
   display:flex;flex-direction:column;gap:5px;padding:.35rem;
-  flex-shrink:0;
 }
 .burger span{display:block;width:20px;height:1.5px;background:var(--blue);border-radius:2px;transition:all var(--ease)}
 
@@ -181,6 +181,76 @@ img{display:block;max-width:100%}
 .btn-lg{padding:.8rem 1.75rem;font-size:.95rem}
 .btn-full{width:100%;justify-content:center}
 .btn-sm{padding:.5rem 1rem;font-size:.8rem}
+.btn-danger{background:#FEE2E2;color:#991B1B;border-color:#FECACA}
+.btn-danger:hover{background:#FECACA}
+
+.brand-mark{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  color:var(--white);font-family:var(--font-display);font-weight:900;letter-spacing:.04em;
+}
+
+.search-shell{display:none;align-items:center;gap:.5rem;flex:1;max-width:340px;margin-left:auto}
+.search-form{
+  display:flex;align-items:center;gap:.45rem;width:100%;
+  background:var(--off-white);border:1px solid var(--border);border-radius:999px;
+  padding:.35rem .4rem .35rem .75rem;
+}
+.search-form input{
+  width:100%;border:none;background:transparent;outline:none;
+  font:500 .82rem var(--font-body);color:var(--text);
+}
+.search-form button{padding:.45rem .75rem;border-radius:999px}
+.search-status{font-size:.75rem;color:var(--text-muted);min-height:1.1rem}
+.search-hit{box-shadow:0 0 0 3px rgba(109,40,217,.18);border-radius:16px}
+
+.account{background:linear-gradient(180deg,var(--off-white),#fff)}
+.account-inner{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+.account-card,.admin-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);padding:1.5rem;
+}
+.account-stack{display:grid;grid-template-columns:1fr;gap:1rem}
+.account-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.account-badge{
+  display:inline-flex;align-items:center;gap:.45rem;padding:.32rem .7rem;border-radius:999px;
+  background:var(--purple-light);color:var(--purple-dark);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+.account-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.auth-form{
+  display:grid;grid-template-columns:1fr;gap:.8rem;background:var(--off-white);
+  border:1px solid var(--border);border-radius:var(--radius);padding:1rem;
+}
+.auth-form h4{font-size:1rem;color:var(--blue)}
+.auth-row{display:grid;grid-template-columns:1fr;gap:.75rem}
+.auth-form input{
+  padding:.72rem .85rem;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font:500 .88rem var(--font-body);outline:none;background:var(--white);
+}
+.auth-form input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(109,40,217,.12)}
+.account-note{font-size:.82rem;color:var(--text-muted)}
+.account-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0}
+.info-chip{
+  background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius);padding:.85rem;
+}
+.info-chip strong{display:block;font-size:.76rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem}
+.info-chip span{font-size:.92rem;color:var(--blue);font-weight:600;word-break:break-word}
+.account-actions{display:flex;flex-wrap:wrap;gap:.75rem}
+.auth-message{font-size:.82rem;min-height:1.15rem}
+.auth-message.ok{color:#15803D}
+.auth-message.err{color:#B91C1C}
+
+.admin{background:var(--blue);display:none}
+.admin.show{display:block}
+.admin .tag{color:var(--yellow)}
+.admin .tag-line{background:var(--yellow)}
+.admin .section-title,.admin .section-sub{color:var(--white)}
+.admin-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:2rem}
+.admin-card{background:rgba(255,255,255,.98)}
+.admin-metric{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--purple-dark)}
+.admin-list{display:grid;gap:.7rem;margin-top:1rem}
+.admin-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--off-white)}
+.admin-item small{display:block;color:var(--text-light)}
 
 /* â”€â”€ LAYOUT â”€â”€ */
 .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
@@ -271,7 +341,7 @@ img{display:block;max-width:100%}
   display:flex;align-items:center;gap:.5rem;
   font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--white);
 }
-.hc-logo-mark{width:22px;height:22px;background:var(--yellow);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.hc-logo-mark{width:22px;height:22px;background:var(--purple);border-radius:5px;display:flex;align-items:center;justify-content:center}
 .hc-badge{
   font-size:.68rem;font-weight:600;
   background:rgba(232,184,75,.15);color:var(--yellow);
@@ -630,7 +700,7 @@ img{display:block;max-width:100%}
   display:flex;align-items:center;gap:.6rem;
   font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--white);
 }
-.footer-logo-mark{width:28px;height:28px;background:var(--yellow);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.footer-logo-mark{width:28px;height:28px;background:var(--purple);border-radius:6px;display:flex;align-items:center;justify-content:center}
 .socials{display:flex;gap:.5rem;margin-top:1rem}
 .soc-btn{
   width:32px;height:32px;border-radius:7px;
@@ -666,10 +736,12 @@ img{display:block;max-width:100%}
   .methods-grid{grid-template-columns:repeat(3,1fr)}
   .steps-grid{grid-template-columns:repeat(2,1fr)}
   .form-row{grid-template-columns:1fr 1fr}
+  .auth-row{grid-template-columns:1fr 1fr}
 }
 @media(min-width:768px){
   .tn-links{display:flex}
   .tn-right{display:flex}
+  .search-shell{display:flex}
   .burger{display:none}
   .hero-inner{grid-template-columns:1fr 1fr}
   .about-inner{grid-template-columns:1fr 1fr}
@@ -678,36 +750,22 @@ img{display:block;max-width:100%}
   .steps-grid{grid-template-columns:repeat(3,1fr)}
   .faq-inner{grid-template-columns:1fr 1.6fr}
   .contact-inner{grid-template-columns:1fr 1.4fr}
+  .account-inner{grid-template-columns:1fr 1.2fr}
   .footer-inner{grid-template-columns:1.2fr 2fr}
   .footer-bottom{flex-direction:row;justify-content:space-between}
 }
 @media(max-width:767px){
-  .topnav-inner{gap:.65rem}
-  .tn-logo{margin-right:auto}
-  .lang-switch.top{display:flex;order:2;margin-left:0}
-  .lang-btn{min-width:38px;height:32px;padding:0 .6rem}
-  .burger{order:3}
-  .devs-inner{gap:1.5rem}
-  .code-win,.wh-win{border-radius:10px}
-  .code-bar,.wh-bar{padding:.55rem .75rem}
-  .c-lang{font-size:.62rem;max-width:150px;text-align:right}
-  .code-body{
-    padding:.85rem .8rem;
-    font-size:.68rem;
-    line-height:1.55;
-  }
-  .wh-body{
-    padding:.75rem .8rem;
-    font-size:.66rem;
-    line-height:1.5;
-    overflow-x:auto;
-  }
+  .lang-switch.top{display:none}
+  .search-shell{display:flex;margin:1rem 1.5rem 0;max-width:none}
+  .tn-right{display:none}
+  .account-info{grid-template-columns:1fr}
 }
 @media(min-width:1024px){
   .methods-grid{grid-template-columns:repeat(3,1fr)}
   .feats-grid{grid-template-columns:repeat(3,1fr)}
   .pricing-grid{grid-template-columns:repeat(3,1fr)}
   .devs-inner{grid-template-columns:1fr 1.15fr}
+  .admin-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -721,11 +779,9 @@ img{display:block;max-width:100%}
   <div class="sb-head">
     <div class="sb-logo">
       <div class="sb-logo-mark">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z" fill="#1A3058"/>
-        </svg>
+        <div class="brand-mark">SK</div>
       </div>
-      yunus
+      skeu
     </div>
     <button class="sb-close" id="sbClose">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -736,41 +792,47 @@ img{display:block;max-width:100%}
   <nav class="sb-nav">
     <a href="#home" class="active">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M3 9L9 3L15 9V15H11V11H7V15H3V9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      <span data-i18n="nav_home">Home</span>
+      Home
     </a>
     <a href="#methods">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2 8H16" stroke="currentColor" stroke-width="1.4"/><path d="M5 11H7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <span data-i18n="nav_methods">Payment Methods</span>
+      Payment Methods
     </a>
     <a href="#features">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M9 2L11 7H16L12 10.5L13.5 16L9 13L4.5 16L6 10.5L2 7H7L9 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      <span data-i18n="nav_features">Features</span>
+      Features
     </a>
     <a href="#how-it-works">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M9 6V9L11 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <span data-i18n="nav_how">How It Works</span>
+      How It Works
     </a>
     <a href="#developers">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M5 6L2 9L5 12M13 6L16 9L13 12M10 4L8 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span data-i18n="nav_developers">Developers</span>
+      Developers
     </a>
     <a href="#pricing">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M9 5.5V6.5M9 11.5V12.5M6.5 9C6.5 7.62 7.62 6.5 9 6.5C10.38 6.5 11.5 7.4 11.5 8.5C11.5 9.6 10.5 10 9 10C7.5 10 6.5 10.38 6.5 11.5C6.5 12.38 7.62 13 9 13C10.38 13 11.5 12.38 11.5 11.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <span data-i18n="nav_pricing">Pricing</span>
+      Pricing
     </a>
     <a href="#faq">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M7 7C7 5.9 7.9 5 9 5C10.1 5 11 5.9 11 7C11 8.1 10 8.5 9 9V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="9" cy="12.5" r=".75" fill="currentColor"/></svg>
-      <span data-i18n="nav_faq">FAQ</span>
+      FAQ
     </a>
     <a href="#contact">
       <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M3 4H15C15.55 4 16 4.45 16 5V13C16 13.55 15.55 14 15 14H3C2.45 14 2 13.55 2 13V5C2 4.45 2.45 4 3 4Z" stroke="currentColor" stroke-width="1.4"/><path d="M2 5L9 10L16 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <span data-i18n="nav_contact">Contact</span>
+      Contact
     </a>
   </nav>
+  <div class="search-shell">
+    <form class="search-form" id="mobileSearchForm">
+      <input type="search" id="mobileSearchInput" placeholder="Search sections..." aria-label="Search sections"/>
+      <button type="submit" class="btn btn-primary btn-sm">Search</button>
+    </form>
+  </div>
   <div class="sb-foot">
     <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13M1 7H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span data-i18n="cta_playstore">Download on Play Store</span>
+      Download on Play Store
     </a>
   </div>
 </aside>
@@ -780,27 +842,29 @@ img{display:block;max-width:100%}
   <div class="topnav-inner">
     <div class="tn-logo">
       <div class="tn-logo-mark">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-          <path d="M7.5 1L13 4.25V10.75L7.5 14L2 10.75V4.25L7.5 1Z" fill="#1A3058"/>
-        </svg>
+        <div class="brand-mark">SK</div>
       </div>
-      yunus
+      skeu
     </div>
     <ul class="tn-links">
-      <li><a href="#home" data-i18n="nav_home">Home</a></li>
-      <li><a href="#methods" data-i18n="nav_methods_short">Methods</a></li>
-      <li><a href="#features" data-i18n="nav_features">Features</a></li>
-      <li><a href="#how-it-works" data-i18n="nav_how">How It Works</a></li>
-      <li><a href="#developers" data-i18n="nav_developers">Developers</a></li>
-      <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
-      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#developers">Developers</a></li>
+      <li><a href="#account">Account</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="lang-switch top">
-      <button type="button" class="lang-btn active" data-lang-btn="en">EN</button>
-      <button type="button" class="lang-btn" data-lang-btn="fr">FR</button>
+    <div class="search-shell">
+      <form class="search-form" id="desktopSearchForm">
+        <input type="search" id="desktopSearchInput" placeholder="Search sections..." aria-label="Search sections"/>
+        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+      </form>
     </div>
     <div class="tn-right">
-      <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm"><span data-i18n="cta_download_app">Download App</span></a>
+      <a href="#account" class="btn btn-outline btn-sm" id="accountShortcut">Sign Up</a>
+      <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Download App</a>
     </div>
     <button class="burger" id="burger">
       <span></span><span></span><span></span>
@@ -812,22 +876,22 @@ img{display:block;max-width:100%}
 <section class="hero" id="home">
   <div class="container hero-inner">
     <div data-r>
-      <div class="hero-tag" data-i18n-html="hero_tag">
+      <div class="hero-tag">
         <span class="tag-line"></span>
         Welcome to yunus Africa
       </div>
-      <h1 class="hero-title" data-i18n-html="hero_title">
+      <h1 class="hero-title">
         Accept Payments<br/>
         <em>Seamlessly</em><br/>
         Across Africa
       </h1>
-      <p class="hero-sub" data-i18n="hero_sub">Your partner for Mobile Money and card payments. We help businesses unlock their full potential with fast, secure, and developer-friendly payment infrastructure.</p>
+      <p class="hero-sub">Your partner for Mobile Money and card payments. We help businesses unlock their full potential with fast, secure, and developer-friendly payment infrastructure.</p>
       <div class="hero-actions">
-        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-yellow btn-lg"><span data-i18n="cta_playstore">Download on Play Store</span></a>
-        <a href="#features" class="btn btn-outline btn-lg"><span data-i18n="cta_learn_more">Learn More</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-yellow btn-lg">Download on Play Store</a>
+        <a href="#features" class="btn btn-outline btn-lg">Learn More</a>
       </div>
       <div class="hero-operators">
-        <div class="op-label" data-i18n="supported_networks">Supported networks</div>
+        <div class="op-label">Supported networks</div>
         <div class="op-pills">
           <span class="op-pill">MTN MoMo</span>
           <span class="op-pill">Orange Money</span>
@@ -855,11 +919,9 @@ img{display:block;max-width:100%}
         <div class="hc-header">
           <div class="hc-logo">
             <div class="hc-logo-mark">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1L11 3.5V8.5L6 11L1 8.5V3.5L6 1Z" fill="#1A3058"/>
-              </svg>
+              <div class="brand-mark" style="font-size:.62rem">SK</div>
             </div>
-            yunus
+            skeu
           </div>
           <span class="hc-badge">Live Dashboard</span>
         </div>
@@ -983,11 +1045,11 @@ img{display:block;max-width:100%}
       </div>
     </div>
     <div class="about-text" data-r="r">
-      <div class="tag"><span class="tag-line"></span><span data-i18n="about_tag">About Us</span></div>
-      <h2 class="section-title" data-i18n="about_title">Partner With Africa's Most Trusted Payment Platform</h2>
-      <p class="section-sub" data-i18n="about_sub_1">At yunus, we are dedicated to helping businesses thrive across Africa. Our team brings deep knowledge of local payment ecosystems â€” from Mobile Money to bank cards â€” with expertise in cross-border transactions.</p>
-      <p class="section-sub" style="margin-top:-.75rem" data-i18n="about_sub_2">We prioritize understanding your unique challenges and deliver customized payment solutions tailored to your business needs, with tangible results.</p>
-      <a href="#features" class="btn btn-primary"><span data-i18n="about_cta">Discover Our Services</span>
+      <div class="tag"><span class="tag-line"></span>About Us</div>
+      <h2 class="section-title">Partner With Africa's Most Trusted Payment Platform</h2>
+      <p class="section-sub">At yunus, we are dedicated to helping businesses thrive across Africa. Our team brings deep knowledge of local payment ecosystems â€” from Mobile Money to bank cards â€” with expertise in cross-border transactions.</p>
+      <p class="section-sub" style="margin-top:-.75rem">We prioritize understanding your unique challenges and deliver customized payment solutions tailored to your business needs, with tangible results.</p>
+      <a href="#features" class="btn btn-primary">Discover Our Services
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M12 7L8 3M12 7L8 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -998,9 +1060,9 @@ img{display:block;max-width:100%}
 <section class="methods section" id="methods">
   <div class="container">
     <div class="methods-head" data-r>
-      <div class="tag"><span class="tag-line"></span><span data-i18n="methods_tag">Payment Methods</span></div>
-      <h2 class="section-title" data-i18n-html="methods_title">Every Way Your Customers <span class="accent-blue">Want to Pay</span></h2>
-      <p class="section-sub" data-i18n="methods_sub">Support for all major Mobile Money providers and bank cards through one unified API.</p>
+      <div class="tag"><span class="tag-line"></span>Payment Methods</div>
+      <h2 class="section-title">Every Way Your Customers <span class="accent-blue">Want to Pay</span></h2>
+      <p class="section-sub">Support for all major Mobile Money providers and bank cards through one unified API.</p>
     </div>
     <div class="methods-grid">
       <div class="method-card">
@@ -1053,7 +1115,7 @@ img{display:block;max-width:100%}
       </div>
     </div>
     <div style="text-align:center;margin-top:2rem">
-      <a href="#" class="btn btn-primary"><span data-i18n="methods_cta">View All Payment Methods</span>
+      <a href="#" class="btn btn-primary">View All Payment Methods
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5H11M11 6.5L7.5 3M11 6.5L7.5 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -1064,8 +1126,8 @@ img{display:block;max-width:100%}
 <section class="features section" id="features">
   <div class="container">
     <div class="features-head" data-r>
-      <div class="tag"><span class="tag-line"></span><span data-i18n="services_tag">Our Services</span></div>
-      <h2 class="section-title" data-i18n-html="services_title">Services We Provide to <span class="accent-blue">Elevate Your Business</span></h2>
+      <div class="tag"><span class="tag-line"></span>Our Services</div>
+      <h2 class="section-title">Services We Provide to <span class="accent-blue">Elevate Your Business</span></h2>
     </div>
     <div class="feats-grid">
       <div class="feat-card" data-r>
@@ -1142,9 +1204,9 @@ img{display:block;max-width:100%}
 <section class="how section" id="how-it-works">
   <div class="container">
     <div class="how-head" data-r>
-      <div class="tag"><span class="tag-line"></span><span data-i18n="process_tag">Our Work Process</span></div>
-      <h2 class="section-title" data-i18n-html="process_title">Our Proven <span class="accent-blue">Work Process</span></h2>
-      <p class="section-sub" data-i18n="process_sub">From account creation to receiving your first payment in 3 clear steps.</p>
+      <div class="tag"><span class="tag-line"></span>Our Work Process</div>
+      <h2 class="section-title">Our Proven <span class="accent-blue">Work Process</span></h2>
+      <p class="section-sub">From account creation to receiving your first payment in 3 clear steps.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card" data-r>
@@ -1152,24 +1214,136 @@ img{display:block;max-width:100%}
         <div class="step-ico">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.24 2 4 4.24 4 7C4 9.76 6.24 12 9 12C11.76 12 14 9.76 14 7C14 4.24 11.76 2 9 2ZM2 16C2 13.33 5.33 11 9 11C12.67 11 16 13.33 16 16" stroke="#3461B8" stroke-width="1.3" stroke-linecap="round"/></svg>
         </div>
-        <h3 data-i18n="step1_title">Download the App</h3>
-        <p data-i18n="step1_sub">Install yunus from the Play Store, create your account, and start using the service in just a few minutes.</p>
+        <h3>Download the App</h3>
+        <p>Install yunus from the Play Store, create your account, and start using the service in just a few minutes.</p>
       </div>
       <div class="step-card" data-r>
         <div class="step-num">02</div>
         <div class="step-ico">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M5 7L2 9L5 11M13 7L16 9L13 11M10 4L8 14" stroke="#3461B8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3 data-i18n="step2_title">Integrate or Share</h3>
-        <p data-i18n="step2_sub">Use our REST API, embed our hosted checkout, or share a payment link â€” whatever fits your workflow best.</p>
+        <h3>Integrate or Share</h3>
+        <p>Use our REST API, embed our hosted checkout, or share a payment link â€” whatever fits your workflow best.</p>
       </div>
       <div class="step-card" data-r>
         <div class="step-num">03</div>
         <div class="step-ico">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C5.13 2 2 5.13 2 9C2 12.87 5.13 16 9 16C12.87 16 16 12.87 16 9" stroke="#3461B8" stroke-width="1.3" stroke-linecap="round"/><path d="M12 6L9 9L7 7" stroke="#3461B8" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3 data-i18n="step3_title">Receive Payments</h3>
-        <p data-i18n="step3_sub">Watch transactions roll in on your real-time dashboard. Funds settled directly to your mobile wallet or bank.</p>
+        <h3>Receive Payments</h3>
+        <p>Watch transactions roll in on your real-time dashboard. Funds settled directly to your mobile wallet or bank.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOUNT -->
+<section class="account section" id="account">
+  <div class="container account-inner">
+    <div data-r="l">
+      <div class="tag"><span class="tag-line"></span>Account Access</div>
+      <h2 class="section-title">Sign Up, Log In, and Manage Your <span class="accent-blue">Profile</span></h2>
+      <p class="section-sub">If a visitor does not have an account yet, they can register here. If they already have one, they can log in, view their information, and log out safely.</p>
+      <div class="search-status" id="searchStatus"></div>
+    </div>
+    <div class="account-stack" data-r="r">
+      <div class="account-card" id="guestAccountView">
+        <div class="account-header">
+          <div>
+            <div class="account-badge">Guest Access</div>
+            <h3 class="section-title" style="font-size:1.5rem;margin:.75rem 0 .35rem">Create or access your account</h3>
+            <p class="account-note">Default admin login: `admin@skeu.com` / `Admin123!`</p>
+          </div>
+        </div>
+        <div class="account-grid">
+          <form class="auth-form" id="registerForm">
+            <h4>Sign Up</h4>
+            <div class="auth-row">
+              <input type="text" id="registerName" placeholder="Full name" required/>
+              <input type="email" id="registerEmail" placeholder="Email address" required/>
+            </div>
+            <div class="auth-row">
+              <input type="text" id="registerCompany" placeholder="Company name" required/>
+              <input type="password" id="registerPassword" placeholder="Password" required/>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+          </form>
+          <form class="auth-form" id="loginForm">
+            <h4>Log In</h4>
+            <div class="auth-row">
+              <input type="email" id="loginEmail" placeholder="Email address" required/>
+              <input type="password" id="loginPassword" placeholder="Password" required/>
+            </div>
+            <button type="submit" class="btn btn-outline">Log In</button>
+            <p class="account-note">Admin users automatically get access to the dashboard section.</p>
+          </form>
+        </div>
+        <p class="auth-message" id="authMessage"></p>
+      </div>
+
+      <div class="account-card" id="userAccountView" hidden>
+        <div class="account-header">
+          <div>
+            <div class="account-badge" id="accountRole">Customer</div>
+            <h3 class="section-title" id="accountName" style="font-size:1.5rem;margin:.75rem 0 .35rem">Welcome back</h3>
+            <p class="account-note">Your saved information is displayed here after login.</p>
+          </div>
+        </div>
+        <div class="account-info">
+          <div class="info-chip">
+            <strong>Email</strong>
+            <span id="accountEmail">-</span>
+          </div>
+          <div class="info-chip">
+            <strong>Company</strong>
+            <span id="accountCompany">-</span>
+          </div>
+          <div class="info-chip">
+            <strong>Status</strong>
+            <span id="accountStatus">Connected</span>
+          </div>
+          <div class="info-chip">
+            <strong>Access</strong>
+            <span id="accountAccess">Customer Portal</span>
+          </div>
+        </div>
+        <div class="account-actions">
+          <a href="#dashboard" class="btn btn-primary" id="dashboardLink" hidden>Open Admin Dashboard</a>
+          <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
+        </div>
+        <p class="auth-message ok" id="welcomeMessage"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+<section class="admin section" id="dashboard">
+  <div class="container">
+    <div class="tag"><span class="tag-line"></span>Admin Dashboard</div>
+    <h2 class="section-title">Dashboard access for the signed-in <span class="accent">administrator</span></h2>
+    <p class="section-sub">This dashboard becomes visible only when the admin account is connected successfully.</p>
+    <div class="admin-grid">
+      <div class="admin-card">
+        <small>Today&apos;s Revenue</small>
+        <div class="admin-metric">XAF 4.8M</div>
+        <p class="account-note">Live overview for the connected administrator.</p>
+      </div>
+      <div class="admin-card">
+        <small>Active Users</small>
+        <div class="admin-metric" id="adminUserCount">1</div>
+        <p class="account-note">Number of locally registered demo accounts.</p>
+      </div>
+      <div class="admin-card">
+        <small>Search Index</small>
+        <div class="admin-metric">Ready</div>
+        <p class="account-note">The search button now scans the visible content sections of the site.</p>
+      </div>
+    </div>
+    <div class="admin-card" style="margin-top:1rem">
+      <h3 style="color:var(--blue)">Recent account activity</h3>
+      <div class="admin-list" id="adminActivity">
+        <div class="admin-item"><div><strong>Admin access</strong><small>admin@skeu.com</small></div><span>Available</span></div>
       </div>
     </div>
   </div>
@@ -1179,9 +1353,9 @@ img{display:block;max-width:100%}
 <section class="devs section" id="developers">
   <div class="container devs-inner">
     <div data-r="l">
-      <div class="tag"><span class="tag-line"></span><span data-i18n="developers_tag">Developers</span></div>
-      <h2 class="section-title" data-i18n-html="developers_title">APIs That Feel Like <span style="color:var(--yellow)">a Joy</span> to Work With</h2>
-      <p class="section-sub" data-i18n="developers_sub">A clean, predictable REST API with excellent documentation, sandbox mode, and official SDKs for all major languages.</p>
+      <div class="tag"><span class="tag-line"></span>Developers</div>
+      <h2 class="section-title">APIs That Feel Like <span style="color:var(--yellow)">a Joy</span> to Work With</h2>
+      <p class="section-sub">A clean, predictable REST API with excellent documentation, sandbox mode, and official SDKs for all major languages.</p>
       <div class="devs-feats">
         <div class="devs-feat">
           <div class="devs-feat-ic">
@@ -1211,7 +1385,7 @@ img{display:block;max-width:100%}
           </div>
         </div>
       </div>
-      <a href="#" class="btn btn-yellow"><span data-i18n="developers_cta">Read the Docs</span>
+      <a href="#" class="btn btn-yellow">Read the Docs
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5H11M11 6.5L7.5 3M11 6.5L7.5 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -1265,9 +1439,9 @@ img{display:block;max-width:100%}
 <section class="pricing section" id="pricing">
   <div class="container">
     <div class="pricing-head" data-r>
-      <div class="tag"><span class="tag-line"></span><span data-i18n="pricing_tag">Transparent Pricing</span></div>
-      <h2 class="section-title" data-i18n-html="pricing_title">Simple, <span class="accent-blue">Honest</span> Pricing</h2>
-      <p class="section-sub" data-i18n="pricing_sub">No setup fees. No hidden charges. You only pay when you earn.</p>
+      <div class="tag"><span class="tag-line"></span>Transparent Pricing</div>
+      <h2 class="section-title">Simple, <span class="accent-blue">Honest</span> Pricing</h2>
+      <p class="section-sub">No setup fees. No hidden charges. You only pay when you earn.</p>
     </div>
     <div class="pricing-grid">
       <div class="price-card">
@@ -1300,7 +1474,7 @@ img{display:block;max-width:100%}
             Dedicated manager
           </li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-full"><span data-i18n="cta_download_app">Download App</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-full">Download App</a>
       </div>
 
       <div class="price-card phot">
@@ -1316,7 +1490,7 @@ img{display:block;max-width:100%}
           <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#16A34A" stroke-width="1.2"/><path d="M4.5 7L6.5 9L9.5 5" stroke="#16A34A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support</li>
           <li class="off"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#D1D5DB" stroke-width="1.2"/><path d="M5 9L9 5M5 5L9 9" stroke="#D1D5DB" stroke-width="1.2" stroke-linecap="round"/></svg>Dedicated manager</li>
         </ul>
-        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-yellow btn-full"><span data-i18n="cta_playstore">Download on Play Store</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.vyzyopay.customer.cameroon_campost&gl=CM" target="_blank" rel="noopener noreferrer" class="btn btn-yellow btn-full">Download on Play Store</a>
       </div>
 
       <div class="price-card pdark">
@@ -1331,7 +1505,7 @@ img{display:block;max-width:100%}
           <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#E8B84B" stroke-width="1.2"/><path d="M4.5 7L6.5 9L9.5 5" stroke="#E8B84B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Batch payouts</li>
           <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#E8B84B" stroke-width="1.2"/><path d="M4.5 7L6.5 9L9.5 5" stroke="#E8B84B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>On-premise option</li>
         </ul>
-        <a href="#contact" class="btn btn-outline-w btn-full"><span data-i18n="cta_contact_sales">Contact Sales</span></a>
+        <a href="#contact" class="btn btn-outline-w btn-full">Contact Sales</a>
       </div>
     </div>
   </div>
@@ -1341,47 +1515,47 @@ img{display:block;max-width:100%}
 <section class="faq section" id="faq">
   <div class="container faq-inner">
     <div data-r="l">
-      <div class="tag"><span class="tag-line"></span><span data-i18n="faq_tag">FAQ</span></div>
-      <h2 class="section-title" data-i18n-html="faq_title">Frequently<br/>Asked<br/><span class="accent-blue">Questions</span></h2>
-      <p class="section-sub" data-i18n="faq_sub">Can't find your answer? Our team is happy to help.</p>
-      <a href="#contact" class="btn btn-primary"><span data-i18n="cta_contact_support">Contact Support</span></a>
+      <div class="tag"><span class="tag-line"></span>FAQ</div>
+      <h2 class="section-title">Frequently<br/>Asked<br/><span class="accent-blue">Questions</span></h2>
+      <p class="section-sub">Can't find your answer? Our team is happy to help.</p>
+      <a href="#contact" class="btn btn-primary">Contact Support</a>
     </div>
     <div class="faq-list" data-r="r">
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q1">Which countries does yunus support?</span>
+        <button class="faq-btn">Which countries does yunus support?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a1">yunus currently operates in 12 African countries including Cameroon, Senegal, CÃ´te d'Ivoire, Ghana, Mali, Burkina Faso, Togo, Benin, Guinea, Niger, Chad, and CAR â€” with more countries being added quarterly.</p></div>
+        <div class="faq-ans"><p>yunus currently operates in 12 African countries including Cameroon, Senegal, CÃ´te d'Ivoire, Ghana, Mali, Burkina Faso, Togo, Benin, Guinea, Niger, Chad, and CAR â€” with more countries being added quarterly.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q2">How long does verification take?</span>
+        <button class="faq-btn">How long does verification take?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a2">Most business accounts are verified within 24 hours. We require a valid ID, proof of business registration, and a bank or mobile money account. Enterprise accounts may take 2â€“3 business days.</p></div>
+        <div class="faq-ans"><p>Most business accounts are verified within 24 hours. We require a valid ID, proof of business registration, and a bank or mobile money account. Enterprise accounts may take 2â€“3 business days.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q3">How quickly are funds settled?</span>
+        <button class="faq-btn">How quickly are funds settled?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a3">Mobile Money settlements happen within minutes. Bank card settlements take 1â€“2 business days. Enterprise clients can negotiate same-day settlement terms.</p></div>
+        <div class="faq-ans"><p>Mobile Money settlements happen within minutes. Bank card settlements take 1â€“2 business days. Enterprise clients can negotiate same-day settlement terms.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q4">Is there a sandbox environment?</span>
+        <button class="faq-btn">Is there a sandbox environment?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a4">Yes. Every account includes a full sandbox environment mirroring production. Use test API keys to simulate payments, failures, and webhooks without moving real money.</p></div>
+        <div class="faq-ans"><p>Yes. Every account includes a full sandbox environment mirroring production. Use test API keys to simulate payments, failures, and webhooks without moving real money.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q5">What currencies can I accept?</span>
+        <button class="faq-btn">What currencies can I accept?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a5">yunus supports XAF, XOF, GHS, USD, and EUR with automatic currency conversion at interbank rates plus a 0.5% conversion fee.</p></div>
+        <div class="faq-ans"><p>yunus supports XAF, XOF, GHS, USD, and EUR with automatic currency conversion at interbank rates plus a 0.5% conversion fee.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-btn"><span data-i18n="faq_q6">How are refunds handled?</span>
+        <button class="faq-btn">How are refunds handled?
           <span class="faq-ico"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5H8M5 2V8" stroke="#1A3058" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         </button>
-        <div class="faq-ans"><p data-i18n="faq_a6">Full and partial refunds can be initiated from your dashboard or via API. Mobile Money refunds are instant; card refunds take 3â€“5 business days.</p></div>
+        <div class="faq-ans"><p>Full and partial refunds can be initiated from your dashboard or via API. Mobile Money refunds are instant; card refunds take 3â€“5 business days.</p></div>
       </div>
     </div>
   </div>
@@ -1391,9 +1565,9 @@ img{display:block;max-width:100%}
 <section class="contact section" id="contact">
   <div class="container contact-inner">
     <div data-r="l">
-      <div class="tag"><span class="tag-line"></span><span data-i18n="contact_tag">Get in Touch</span></div>
-      <h2 class="section-title" data-i18n-html="contact_title">Let's Build Something <span class="accent-blue">Together</span></h2>
-      <p class="section-sub" data-i18n="contact_sub">Have questions or need a custom plan? Our team is here to help your business grow across Africa.</p>
+      <div class="tag"><span class="tag-line"></span>Get in Touch</div>
+      <h2 class="section-title">Let's Build Something <span class="accent-blue">Together</span></h2>
+      <p class="section-sub">Have questions or need a custom plan? Our team is here to help your business grow across Africa.</p>
       <div class="c-links">
         <a href="/cdn-cgi/l/email-protection#7c0f090c0c130e083c0c1d051a10130b521d1a0e151f1d" class="c-link">
           <div class="c-link-ic">
@@ -1405,7 +1579,7 @@ img{display:block;max-width:100%}
           <div class="c-link-ic">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#15803D" stroke-width="1.2"/><path d="M5.5 10C5.5 10 6.5 11 8 11C9.5 11 11 9.5 11 8C11 6.5 9.5 5 8 5C6.5 5 5 6.5 5 8C5 8.5 5.2 9 5.5 9.5L5 11L6.5 10.5" stroke="#15803D" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <span data-i18n="whatsapp_support">WhatsApp Support</span>
+          WhatsApp Support
         </a>
         <a href="tel:+237600000000" class="c-link">
           <div class="c-link-ic">
@@ -1417,15 +1591,15 @@ img{display:block;max-width:100%}
     </div>
     <form class="contact-form" id="cForm" onsubmit="handleForm(event)" data-r="r">
       <div class="form-row">
-        <div class="fg"><label data-i18n="form_full_name">Full Name</label><input type="text" data-i18n-placeholder="form_full_name_placeholder" placeholder="Jean Dupont" required/></div>
-        <div class="fg"><label data-i18n="form_email">Email</label><input type="email" data-i18n-placeholder="form_email_placeholder" placeholder="jean@company.com" required/></div>
+        <div class="fg"><label>Full Name</label><input type="text" placeholder="Mr Chris" required/></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="Chris@company.com" required/></div>
       </div>
-      <div class="fg"><label data-i18n="form_subject">Subject</label><input type="text" data-i18n-placeholder="form_subject_placeholder" placeholder="Integration enquiry"/></div>
-      <div class="fg"><label data-i18n="form_message">Message</label><textarea rows="4" data-i18n-placeholder="form_message_placeholder" placeholder="Tell us about your business and payment needs..." required></textarea></div>
-      <button type="submit" class="btn btn-primary btn-full"><span data-i18n="form_send">Send Message</span>
+      <div class="fg"><label>Subject</label><input type="text" placeholder="Integration enquiry"/></div>
+      <div class="fg"><label>Message</label><textarea rows="4" placeholder="Tell us about your business and payment needs..." required></textarea></div>
+      <button type="submit" class="btn btn-primary btn-full">Send Message
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5H11M11 6.5L7.5 3M11 6.5L7.5 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p id="formOk" class="form-ok" data-i18n="form_ok">Message sent â€” we'll reply within 24 hours.</p>
+      <p id="formOk" class="form-ok">Message sent â€” we'll reply within 24 hours.</p>
     </form>
   </div>
 </section>
@@ -1436,13 +1610,11 @@ img{display:block;max-width:100%}
     <div class="footer-brand">
       <div class="footer-logo">
         <div class="footer-logo-mark">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="#1A3058"/>
-          </svg>
+          <div class="brand-mark" style="font-size:.68rem">SK</div>
         </div>
-        yunus
+        skeu
       </div>
-      <p data-i18n="footer_desc">The payment infrastructure for African businesses. Accept Mobile Money and cards with one integration.</p>
+      <p>The payment infrastructure for African businesses. Accept Mobile Money and cards with one integration.</p>
       <div class="socials">
         <a href="#" class="soc-btn" aria-label="Twitter">
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 1L5.5 7.5L1 12H2.5L6.2 8.4L9.5 12H12L7.2 5.2L11.5 1H10L6.5 4.3L3.5 1H1Z" stroke="currentColor" stroke-width="1" fill="currentColor" opacity=".6"/></svg>
@@ -1457,253 +1629,233 @@ img{display:block;max-width:100%}
     </div>
     <div class="footer-cols">
       <div class="footer-col">
-        <h5 data-i18n="footer_product">Product</h5>
+        <h5>Product</h5>
         <ul>
-          <li><a href="#features" data-i18n="nav_features">Features</a></li>
-          <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
-          <li><a href="#developers" data-i18n="footer_api_docs">API Docs</a></li>
-          <li><a href="#" data-i18n="footer_changelog">Changelog</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#developers">API Docs</a></li>
+          <li><a href="#">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5 data-i18n="footer_company">Company</h5>
+        <h5>Company</h5>
         <ul>
-          <li><a href="#" data-i18n="about_tag">About Us</a></li>
-          <li><a href="#" data-i18n="footer_blog">Blog</a></li>
-          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-          <li><a href="#" data-i18n="footer_careers">Careers</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Careers</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5 data-i18n="footer_legal">Legal</h5>
+        <h5>Legal</h5>
         <ul>
-          <li><a href="#" data-i18n="footer_privacy">Privacy Policy</a></li>
-          <li><a href="#" data-i18n="footer_terms">Terms of Service</a></li>
-          <li><a href="#" data-i18n="footer_cookie">Cookie Policy</a></li>
-          <li><a href="#" data-i18n="footer_compliance">Compliance</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Compliance</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="footer-bottom container">
-    <p data-i18n="footer_copy">© 2025 yunus Africa. All rights reserved.</p>
-    <p data-i18n="footer_built">Built for Africa</p>
+    <p>Â© 2025 yunus Africa. All rights reserved.</p>
+    <p>Built for Africa</p>
   </div>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const translations={
-  en:{
-    page_title:"yunus Africa - Payment Infrastructure for Africa",
-    nav_home:"Home",
-    nav_methods:"Payment Methods",
-    nav_methods_short:"Methods",
-    nav_features:"Features",
-    nav_how:"How It Works",
-    nav_developers:"Developers",
-    nav_pricing:"Pricing",
-    nav_faq:"FAQ",
-    nav_contact:"Contact",
-    cta_playstore:"Download on Play Store",
-    cta_contact_sales:"Contact Sales",
-    cta_download_app:"Download App",
-    cta_learn_more:"Learn More",
-    hero_tag:"<span class=\"tag-line\"></span>Welcome to yunus Africa",
-    hero_title:"Accept Payments<br/><em>Seamlessly</em><br/>Across Africa",
-    hero_sub:"Your partner for Mobile Money and card payments. We help businesses unlock their full potential with fast, secure, and developer-friendly payment infrastructure.",
-    supported_networks:"Supported networks",
-    about_tag:"About Us",
-    about_title:"Partner With Africa's Most Trusted Payment Platform",
-    about_sub_1:"At yunus, we are dedicated to helping businesses thrive across Africa. Our team brings deep knowledge of local payment ecosystems - from Mobile Money to bank cards - with expertise in cross-border transactions.",
-    about_sub_2:"We prioritize understanding your unique challenges and deliver customized payment solutions tailored to your business needs, with tangible results.",
-    about_cta:"Discover Our Services",
-    methods_tag:"Payment Methods",
-    methods_title:"Every Way Your Customers <span class=\"accent-blue\">Want to Pay</span>",
-    methods_sub:"Support for all major Mobile Money providers and bank cards through one unified API.",
-    methods_cta:"View All Payment Methods",
-    services_tag:"Our Services",
-    services_title:"Services We Provide to <span class=\"accent-blue\">Elevate Your Business</span>",
-    process_tag:"Our Work Process",
-    process_title:"Our Proven <span class=\"accent-blue\">Work Process</span>",
-    process_sub:"From account creation to receiving your first payment in 3 clear steps.",
-    step1_title:"Download the App",
-    step1_sub:"Install yunus from the Play Store, create your account, and start using the service in just a few minutes.",
-    step2_title:"Integrate or Share",
-    step2_sub:"Use our REST API, embed our hosted checkout, or share a payment link - whatever fits your workflow best.",
-    step3_title:"Receive Payments",
-    step3_sub:"Watch transactions roll in on your real-time dashboard. Funds settled directly to your mobile wallet or bank.",
-    developers_tag:"Developers",
-    developers_title:"APIs That Feel Like <span style=\"color:var(--yellow)\">a Joy</span> to Work With",
-    developers_sub:"A clean, predictable REST API with excellent documentation, sandbox mode, and official SDKs for all major languages.",
-    developers_cta:"Read the Docs",
-    pricing_tag:"Transparent Pricing",
-    pricing_title:"Simple, <span class=\"accent-blue\">Honest</span> Pricing",
-    pricing_sub:"No setup fees. No hidden charges. You only pay when you earn.",
-    faq_tag:"FAQ",
-    faq_title:"Frequently<br/>Asked<br/><span class=\"accent-blue\">Questions</span>",
-    faq_sub:"Can't find your answer? Our team is happy to help.",
-    cta_contact_support:"Contact Support",
-    faq_q1:"Which countries does yunus support?",
-    faq_a1:"yunus currently operates in 12 African countries including Cameroon, Senegal, Cote d'Ivoire, Ghana, Mali, Burkina Faso, Togo, Benin, Guinea, Niger, Chad, and CAR - with more countries being added quarterly.",
-    faq_q2:"How long does verification take?",
-    faq_a2:"Most business accounts are verified within 24 hours. We require a valid ID, proof of business registration, and a bank or mobile money account. Enterprise accounts may take 2-3 business days.",
-    faq_q3:"How quickly are funds settled?",
-    faq_a3:"Mobile Money settlements happen within minutes. Bank card settlements take 1-2 business days. Enterprise clients can negotiate same-day settlement terms.",
-    faq_q4:"Is there a sandbox environment?",
-    faq_a4:"Yes. Every account includes a full sandbox environment mirroring production. Use test API keys to simulate payments, failures, and webhooks without moving real money.",
-    faq_q5:"What currencies can I accept?",
-    faq_a5:"yunus supports XAF, XOF, GHS, USD, and EUR with automatic currency conversion at interbank rates plus a 0.5% conversion fee.",
-    faq_q6:"How are refunds handled?",
-    faq_a6:"Full and partial refunds can be initiated from your dashboard or via API. Mobile Money refunds are instant; card refunds take 3-5 business days.",
-    contact_tag:"Get in Touch",
-    contact_title:"Let's Build Something <span class=\"accent-blue\">Together</span>",
-    contact_sub:"Have questions or need a custom plan? Our team is here to help your business grow across Africa.",
-    whatsapp_support:"WhatsApp Support",
-    form_full_name:"Full Name",
-    form_full_name_placeholder:"Jean Dupont",
-    form_email:"Email",
-    form_email_placeholder:"jean@company.com",
-    form_subject:"Subject",
-    form_subject_placeholder:"Integration enquiry",
-    form_message:"Message",
-    form_message_placeholder:"Tell us about your business and payment needs...",
-    form_send:"Send Message",
-    form_ok:"Message sent - we'll reply within 24 hours.",
-    footer_desc:"The payment infrastructure for African businesses. Accept Mobile Money and cards with one integration.",
-    footer_product:"Product",
-    footer_api_docs:"API Docs",
-    footer_changelog:"Changelog",
-    footer_company:"Company",
-    footer_blog:"Blog",
-    footer_careers:"Careers",
-    footer_legal:"Legal",
-    footer_privacy:"Privacy Policy",
-    footer_terms:"Terms of Service",
-    footer_cookie:"Cookie Policy",
-    footer_compliance:"Compliance",
-    footer_copy:"© 2025 yunus Africa. All rights reserved.",
-    footer_built:"Built for Africa"
-  },
-  fr:{
-    page_title:"yunus Africa - Infrastructure de paiement pour l'Afrique",
-    nav_home:"Accueil",
-    nav_methods:"Moyens de paiement",
-    nav_methods_short:"Moyens",
-    nav_features:"Fonctionnalites",
-    nav_how:"Comment ca marche",
-    nav_developers:"Developpeurs",
-    nav_pricing:"Tarifs",
-    nav_faq:"FAQ",
-    nav_contact:"Contact",
-    cta_playstore:"Telecharger sur Play Store",
-    cta_contact_sales:"Contacter l'equipe",
-    cta_download_app:"Telecharger l'application",
-    cta_learn_more:"En savoir plus",
-    hero_tag:"<span class=\"tag-line\"></span>Bienvenue sur yunus Africa",
-    hero_title:"Acceptez les paiements<br/><em>simplement</em><br/>partout en Afrique",
-    hero_sub:"Votre partenaire pour les paiements Mobile Money et par carte. Nous aidons les entreprises a grandir avec une infrastructure de paiement rapide, securisee et simple a utiliser.",
-    supported_networks:"Reseaux pris en charge",
-    about_tag:"A propos",
-    about_title:"Travaillez avec l'une des plateformes de paiement les plus fiables d'Afrique",
-    about_sub_1:"Chez yunus, nous aidons les entreprises a se developper partout en Afrique. Notre equipe maitrise les ecosystemes de paiement locaux, du Mobile Money aux cartes bancaires, ainsi que les paiements transfrontaliers.",
-    about_sub_2:"Nous prenons le temps de comprendre vos besoins et de proposer des solutions de paiement adaptees, avec des resultats concrets.",
-    about_cta:"Decouvrir nos services",
-    methods_tag:"Moyens de paiement",
-    methods_title:"Toutes les facons dont vos clients <span class=\"accent-blue\">veulent payer</span>",
-    methods_sub:"Prise en charge des principaux operateurs Mobile Money et des cartes bancaires via une API unique.",
-    methods_cta:"Voir tous les moyens de paiement",
-    services_tag:"Nos services",
-    services_title:"Des services pour <span class=\"accent-blue\">faire grandir votre activite</span>",
-    process_tag:"Notre processus",
-    process_title:"Un <span class=\"accent-blue\">processus simple</span> et efficace",
-    process_sub:"De l'installation a votre premier paiement recu en 3 etapes claires.",
-    step1_title:"Telecharger l'application",
-    step1_sub:"Installez yunus depuis le Play Store, creez votre compte et commencez a utiliser le service en quelques minutes.",
-    step2_title:"Integrer ou partager",
-    step2_sub:"Utilisez notre API REST, notre page de paiement hebergee ou partagez simplement un lien de paiement selon votre besoin.",
-    step3_title:"Recevoir les paiements",
-    step3_sub:"Suivez les transactions en temps reel depuis votre tableau de bord. Les fonds sont verses directement sur votre wallet mobile ou votre banque.",
-    developers_tag:"Developpeurs",
-    developers_title:"Des API agreables <span style=\"color:var(--yellow)\">a utiliser</span>",
-    developers_sub:"Une API REST claire et previsible avec une excellente documentation, un mode sandbox et des SDK officiels pour les langages majeurs.",
-    developers_cta:"Lire la documentation",
-    pricing_tag:"Tarification transparente",
-    pricing_title:"Des tarifs <span class=\"accent-blue\">simples</span> et clairs",
-    pricing_sub:"Aucun frais d'installation. Aucun cout cache. Vous payez seulement lorsque vous encaissez.",
-    faq_tag:"FAQ",
-    faq_title:"Questions<br/>frequentes<br/><span class=\"accent-blue\">et reponses</span>",
-    faq_sub:"Vous ne trouvez pas votre reponse ? Notre equipe est la pour vous aider.",
-    cta_contact_support:"Contacter le support",
-    faq_q1:"Dans quels pays yunus est-il disponible ?",
-    faq_a1:"yunus opere actuellement dans 12 pays africains dont le Cameroun, le Senegal, la Cote d'Ivoire, le Ghana, le Mali, le Burkina Faso, le Togo, le Benin, la Guinee, le Niger, le Tchad et la RCA, avec de nouveaux pays ajoutes regulierement.",
-    faq_q2:"Combien de temps prend la verification ?",
-    faq_a2:"La plupart des comptes entreprises sont verifies sous 24 heures. Nous demandons une piece d'identite valide, un justificatif d'enregistrement et un compte bancaire ou Mobile Money. Les comptes enterprise peuvent prendre 2 a 3 jours ouvrables.",
-    faq_q3:"En combien de temps les fonds sont-ils verses ?",
-    faq_a3:"Les versements Mobile Money se font en quelques minutes. Les reglements par carte prennent 1 a 2 jours ouvrables. Les clients enterprise peuvent negocier un versement le jour meme.",
-    faq_q4:"Y a-t-il un environnement sandbox ?",
-    faq_a4:"Oui. Chaque compte inclut un environnement sandbox complet qui reproduit la production. Utilisez des cles de test pour simuler les paiements, erreurs et webhooks sans utiliser d'argent reel.",
-    faq_q5:"Quelles devises puis-je accepter ?",
-    faq_a5:"yunus prend en charge le XAF, le XOF, le GHS, l'USD et l'EUR avec conversion automatique au taux interbancaire plus 0,5 % de frais de conversion.",
-    faq_q6:"Comment les remboursements sont-ils geres ?",
-    faq_a6:"Les remboursements complets ou partiels peuvent etre lances depuis votre tableau de bord ou via l'API. Les remboursements Mobile Money sont instantanes et ceux par carte prennent 3 a 5 jours ouvrables.",
-    contact_tag:"Nous contacter",
-    contact_title:"Construisons quelque chose <span class=\"accent-blue\">ensemble</span>",
-    contact_sub:"Vous avez des questions ou besoin d'une offre sur mesure ? Notre equipe est la pour accompagner la croissance de votre entreprise en Afrique.",
-    whatsapp_support:"Support WhatsApp",
-    form_full_name:"Nom complet",
-    form_full_name_placeholder:"Jean Dupont",
-    form_email:"Email",
-    form_email_placeholder:"jean@entreprise.com",
-    form_subject:"Sujet",
-    form_subject_placeholder:"Demande d'integration",
-    form_message:"Message",
-    form_message_placeholder:"Parlez-nous de votre activite et de vos besoins de paiement...",
-    form_send:"Envoyer le message",
-    form_ok:"Message envoye - nous vous repondrons sous 24 heures.",
-    footer_desc:"L'infrastructure de paiement pour les entreprises africaines. Acceptez le Mobile Money et les cartes avec une seule integration.",
-    footer_product:"Produit",
-    footer_api_docs:"Documentation API",
-    footer_changelog:"Journal des mises a jour",
-    footer_company:"Entreprise",
-    footer_blog:"Blog",
-    footer_careers:"Carrieres",
-    footer_legal:"Juridique",
-    footer_privacy:"Politique de confidentialite",
-    footer_terms:"Conditions d'utilisation",
-    footer_cookie:"Politique de cookies",
-    footer_compliance:"Conformite",
-    footer_copy:"© 2025 yunus Africa. Tous droits reserves.",
-    footer_built:"Concu pour l'Afrique"
-  }
+const APP_TITLE='SK - Payment Infrastructure for Africa';
+const USERS_KEY='skeu-users';
+const CURRENT_USER_KEY='skeu-current-user';
+const DEFAULT_ADMIN={
+  name:'Skeu Admin',
+  email:'admin@skeu.com',
+  company:'Skeu',
+  password:'Admin123!',
+  role:'admin'
 };
 
-function applyLanguage(lang){
-  const dict=translations[lang]||translations.en;
-  document.documentElement.lang=lang;
-  document.title=dict.page_title;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key=el.dataset.i18n;
-    if(dict[key]) el.textContent=dict[key];
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
-    const key=el.dataset.i18nHtml;
-    if(dict[key]) el.innerHTML=dict[key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
-    const key=el.dataset.i18nPlaceholder;
-    if(dict[key]) el.setAttribute('placeholder',dict[key]);
-  });
-  document.querySelectorAll('[data-lang-btn]').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.langBtn===lang);
-  });
-  localStorage.setItem('yunus-lang',lang);
+document.title=APP_TITLE;
+
+function getUsers(){
+  const parsed=JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+  const hasAdmin=parsed.some(user=>user.email===DEFAULT_ADMIN.email);
+  if(!hasAdmin){
+    parsed.unshift(DEFAULT_ADMIN);
+    localStorage.setItem(USERS_KEY,JSON.stringify(parsed));
+  }
+  return parsed;
 }
 
-const savedLanguage=localStorage.getItem('yunus-lang')||'en';
-document.querySelectorAll('[data-lang-btn]').forEach(btn=>{
-  btn.addEventListener('click',()=>applyLanguage(btn.dataset.langBtn));
-});
-applyLanguage(savedLanguage);
+function saveUsers(users){
+  localStorage.setItem(USERS_KEY,JSON.stringify(users));
+}
+
+function getCurrentUser(){
+  return JSON.parse(localStorage.getItem(CURRENT_USER_KEY) || 'null');
+}
+
+function setCurrentUser(user){
+  if(user){
+    localStorage.setItem(CURRENT_USER_KEY,JSON.stringify(user));
+  }else{
+    localStorage.removeItem(CURRENT_USER_KEY);
+  }
+}
+
+function setAuthMessage(message,type=''){
+  const authMessage=document.getElementById('authMessage');
+  if(!authMessage) return;
+  authMessage.textContent=message;
+  authMessage.className=`auth-message ${type}`.trim();
+}
+
+function renderAdminActivity(users){
+  const activity=document.getElementById('adminActivity');
+  const userCount=document.getElementById('adminUserCount');
+  if(userCount){
+    userCount.textContent=String(Math.max(users.length-1,0));
+  }
+  if(!activity) return;
+  const items=users.slice(0,5).map(user=>{
+    const roleLabel=user.role==='admin' ? 'Administrator' : 'Customer';
+    return `<div class="admin-item"><div><strong>${user.name}</strong><small>${user.email}</small></div><span>${roleLabel}</span></div>`;
+  }).join('');
+  activity.innerHTML=items || '<div class="admin-item"><div><strong>No accounts yet</strong><small>Register a user to see activity</small></div><span>Waiting</span></div>';
+}
+
+function renderAccountUI(){
+  const users=getUsers();
+  const currentUser=getCurrentUser();
+  const guestView=document.getElementById('guestAccountView');
+  const userView=document.getElementById('userAccountView');
+  const dashboard=document.getElementById('dashboard');
+  const shortcut=document.getElementById('accountShortcut');
+  const dashboardLink=document.getElementById('dashboardLink');
+  const welcomeMessage=document.getElementById('welcomeMessage');
+
+  renderAdminActivity(users);
+
+  if(shortcut){
+    shortcut.textContent=currentUser ? 'My Account' : 'Sign Up';
+  }
+
+  if(!currentUser){
+    if(guestView) guestView.hidden=false;
+    if(userView) userView.hidden=true;
+    if(dashboard) dashboard.classList.remove('show');
+    return;
+  }
+
+  if(guestView) guestView.hidden=true;
+  if(userView) userView.hidden=false;
+  document.getElementById('accountRole').textContent=currentUser.role==='admin' ? 'Administrator' : 'Customer';
+  document.getElementById('accountName').textContent=currentUser.name;
+  document.getElementById('accountEmail').textContent=currentUser.email;
+  document.getElementById('accountCompany').textContent=currentUser.company;
+  document.getElementById('accountStatus').textContent='Connected';
+  document.getElementById('accountAccess').textContent=currentUser.role==='admin' ? 'Admin Dashboard Access' : 'Customer Account';
+  if(welcomeMessage){
+    welcomeMessage.textContent=`Signed in as ${currentUser.name}.`;
+  }
+
+  const isAdmin=currentUser.role==='admin';
+  if(dashboard){
+    dashboard.classList.toggle('show',isAdmin);
+  }
+  if(dashboardLink){
+    dashboardLink.hidden=!isAdmin;
+  }
+}
+
+function handleRegister(event){
+  event.preventDefault();
+  const users=getUsers();
+  const name=document.getElementById('registerName').value.trim();
+  const email=document.getElementById('registerEmail').value.trim().toLowerCase();
+  const company=document.getElementById('registerCompany').value.trim();
+  const password=document.getElementById('registerPassword').value;
+
+  if(users.some(user=>user.email===email)){
+    setAuthMessage('An account with this email already exists. Please log in instead.','err');
+    return;
+  }
+
+  const newUser={name,email,company,password,role:'customer'};
+  users.push(newUser);
+  saveUsers(users);
+  setCurrentUser(newUser);
+  event.target.reset();
+  setAuthMessage('');
+  renderAccountUI();
+}
+
+function handleLogin(event){
+  event.preventDefault();
+  const users=getUsers();
+  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  const password=document.getElementById('loginPassword').value;
+  const user=users.find(entry=>entry.email===email && entry.password===password);
+
+  if(!user){
+    setAuthMessage('Invalid email or password.','err');
+    return;
+  }
+
+  setCurrentUser(user);
+  event.target.reset();
+  setAuthMessage('');
+  renderAccountUI();
+}
+
+function handleLogout(){
+  setCurrentUser(null);
+  renderAccountUI();
+}
+
+function clearSearchHighlights(){
+  document.querySelectorAll('.search-hit').forEach(section=>section.classList.remove('search-hit'));
+}
+
+function runSearch(query){
+  const status=document.getElementById('searchStatus');
+  const trimmed=query.trim().toLowerCase();
+  clearSearchHighlights();
+
+  if(!trimmed){
+    if(status) status.textContent='Enter a keyword to search through the site sections.';
+    return;
+  }
+
+  const sections=[...document.querySelectorAll('section[id]')];
+  const matches=sections.filter(section=>section.textContent.toLowerCase().includes(trimmed));
+
+  if(!matches.length){
+    if(status) status.textContent=`No result found for "${query}".`;
+    return;
+  }
+
+  matches.forEach(section=>section.classList.add('search-hit'));
+  matches[0].scrollIntoView({behavior:'smooth',block:'start'});
+  if(status) status.textContent=`${matches.length} section(s) matched "${query}".`;
+}
+
+function attachSearch(formId,inputId){
+  const form=document.getElementById(formId);
+  const input=document.getElementById(inputId);
+  if(!form || !input) return;
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    runSearch(input.value);
+  });
+}
+
+document.getElementById('registerForm').addEventListener('submit',handleRegister);
+document.getElementById('loginForm').addEventListener('submit',handleLogin);
+document.getElementById('logoutBtn').addEventListener('click',handleLogout);
+attachSearch('desktopSearchForm','desktopSearchInput');
+attachSearch('mobileSearchForm','mobileSearchInput');
+renderAccountUI();
 
 // SIDEBAR
 const sidebar=document.getElementById('sidebar');
