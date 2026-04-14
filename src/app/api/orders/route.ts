@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ orders })
   } catch (error: any) {
     const message = String(error?.message || '')
-    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth|MongoServerError/i.test(message)
+    const dbUnavailable = /MONGODB_URI manquant|ECONN|authentication failed|bad auth/i.test(message)
 
     if (dbUnavailable) {
       return NextResponse.json({ orders: [], warning: 'Base de donnees indisponible' })

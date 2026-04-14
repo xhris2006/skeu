@@ -97,16 +97,39 @@ export default function AdminDashboard() {
 
   const onSelectImages = async (files: FileList | null) => {
     if (!files?.length) return
+    const MAX_IMAGES = 6
 
-    const toBase64 = (file: File) =>
+    const compressImage = (file: File) =>
       new Promise<string>((resolve, reject) => {
         const reader = new FileReader()
-        reader.onload = () => resolve(String(reader.result || ''))
+        reader.onload = () => {
+          const img = new Image()
+          img.onload = () => {
+            const maxWidth = 1200
+            const scale = img.width > maxWidth ? maxWidth / img.width : 1
+            const canvas = document.createElement('canvas')
+            canvas.width = Math.round(img.width * scale)
+            canvas.height = Math.round(img.height * scale)
+            const ctx = canvas.getContext('2d')
+            if (!ctx) return reject(new Error('Canvas indisponible'))
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+            resolve(canvas.toDataURL('image/jpeg', 0.75))
+          }
+          img.onerror = reject
+          img.src = String(reader.result || '')
+        }
         reader.onerror = reject
         reader.readAsDataURL(file)
       })
 
-    const encoded = await Promise.all(Array.from(files).map(toBase64))
+    const remainingSlots = Math.max(0, MAX_IMAGES - form.images.length)
+    if (remainingSlots <= 0) {
+      setMsg('Maximum 6 images par produit.')
+      return
+    }
+
+    const selected = Array.from(files).slice(0, remainingSlots)
+    const encoded = await Promise.all(selected.map(compressImage))
     setForm((prev) => ({ ...prev, images: [...prev.images, ...encoded] }))
   }
 
